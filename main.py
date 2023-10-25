@@ -11,86 +11,76 @@ BACKGROUND_COLOR = "#FFFDD1"
 BACKGROUND_COLOR2 = "#D3D3D3"
 ATL_COLOR = "#949494"
 
-root = Tk()
-root.title("Inventory Manager 3.0")
-root.geometry("1280x820")
-root.config(bg=BACKGROUND_COLOR)
 
-main_tab = ttk.Notebook(root)
-main_tab.pack(fill="both")
+class InvManager():
 
+    def __init__(self) :
+        self.root = Tk()
+        self.root.title("Inventory Manager 3.0")
+        self.root.geometry("1280x820")
+        self.root.config(bg=BACKGROUND_COLOR)
 
+        self.main_tab = ttk.Notebook(self.root)
+        self.main_tab.pack(fill="both")
 
+        ##########-----EXIT TAB-----###############
+        #main frame for the EXIT Tab
+        self.exit_frame = Frame(master=self.main_tab, height=820, width=1280, bg=BACKGROUND_COLOR)
+        self.exit_frame.pack(fill="both", expand=1)
 
-##########-----EXIT TAB-----###############
-#main frame for the EXIT Tab
-exit_frame = Frame(master=main_tab, height=820, width=1280, bg=BACKGROUND_COLOR)
-exit_frame.pack(fill="both", expand=1)
+        #frame for the recent exit section of the tab.
+        self.exit_info_frame = Frame(master=self.exit_frame, height=820, width=720, bg=BACKGROUND_COLOR)
+        self.exit_info_frame.grid(column=1, row=0)
+        self.exit_info_sec = RecentExits(frame=self.exit_info_frame)
 
-#frame for the recent exit section of the tab.
-exit_info_frame = Frame(master=exit_frame, height=820, width=720, bg=BACKGROUND_COLOR)
-exit_info_frame.grid(column=1, row=0)
-exit_info_sec = RecentExits(frame=exit_info_frame)
+        #frame for the withdraw section of the Tab
+        self.output_frame = Frame(master=self.exit_frame, height=820, width=550, bg=BACKGROUND_COLOR)
+        self.output_frame.grid(column=0, row=0)
+        self.exit_sec = Exit(frame=self.output_frame, updates=self.exit_info_sec)
 
-#frame for the withdraw section of the Tab
-output_frame = Frame(master=exit_frame, height=820, width=550, bg=BACKGROUND_COLOR)
-output_frame.grid(column=0, row=0)
-exit_sec = Exit(frame=output_frame, updates=exit_info_sec)
+        ###########-------ENTRY TAB-----################
+        #main frame for the ENTRY Tab
+        self.entry_frame = Frame(master=self.main_tab, height=820, width=1280, bg=BACKGROUND_COLOR)
+        self.entry_frame.pack(fill="both", expand=1)
 
-#making frame screen responsive
-EX_COLUMNS = 2
-for i in range(EX_COLUMNS):
-    exit_frame.grid_columnconfigure(i,  weight = 1)
+        #frame for the recent entries section of the tab.
+        self.info_frame = Frame(master=self.entry_frame, height=820, width=720, bg=BACKGROUND_COLOR)
+        self.info_frame.grid(column=1, row=0)
+        self.info_sec = RecentEntries(frame=self.info_frame)
 
+        #frame for the input section of the Entry Tab
+        self.input_frame = Frame(master=self.entry_frame, height=820, width=550, bg=BACKGROUND_COLOR)
+        self.input_frame.grid(column=0, row=0)
+        self.entry_sec = Input(frame=self.input_frame, updates=self.info_sec, exit_up=self.exit_sec)
 
+        ##########-------INSIGHT TAB-------##############
+        #main frame for the ENTRY Tab
+        self.advanced_frame = Frame(master=self.main_tab, height=820, width=1280, bg=BACKGROUND_COLOR2)
+        self.advanced_frame.pack(fill="both", expand=1)
 
+        #frame for the verify and reports section of the tab.
+        self.check_report_frame = Frame(master=self.advanced_frame, height=820, width=500, bg=ATL_COLOR)
+        self.check_report_frame.grid(column=0, row=0)
+        self.stock_check = StockLook(frame=self.check_report_frame, entry_update=self.entry_sec, exit_update=self.exit_sec)
 
-###########-------ENTRY TAB-----################
-#main frame for the ENTRY Tab
-entry_frame = Frame(master=main_tab, height=820, width=1280, bg=BACKGROUND_COLOR)
-entry_frame.pack(fill="both", expand=1)
+        #frame for the filter section of the tab.
+        self.filter_frame = Frame(master=self.advanced_frame, height=820, width=780, bg=ATL_COLOR)
+        self.filter_frame.grid(column=1, row=0)
+        self.filter_sec = Filter(frame=self.filter_frame)
 
-#frame for the recent entries section of the tab.
-info_frame = Frame(master=entry_frame, height=820, width=720, bg=BACKGROUND_COLOR)
-info_frame.grid(column=1, row=0)
-info_sec = RecentEntries(frame=info_frame)
+        #making frame screen responsive
+        IN_COLUMNS = 2
+        for i in range(IN_COLUMNS):
+            self.advanced_frame.grid_columnconfigure(i,  weight = 1)
+            self.entry_frame.grid_columnconfigure(i,  weight = 1)
+            self.exit_frame.grid_columnconfigure(i,  weight = 1)
 
-#frame for the input section of the Entry Tab
-input_frame = Frame(master=entry_frame, height=820, width=550, bg=BACKGROUND_COLOR)
-input_frame.grid(column=0, row=0)
-entry_sec = Input(frame=input_frame, updates=info_sec, exit_up=exit_sec)
+        ################################################
+        self.main_tab.add(self.entry_frame, text="     ENTRY     ")
+        self.main_tab.add(self.exit_frame, text="     EXIT     ")
+        self.main_tab.add(self.advanced_frame, text="     ADVANCED     ")
 
-#making frame screen responsive
-EN_COLUMNS = 2
-for i in range(EN_COLUMNS):
-    entry_frame.grid_columnconfigure(i,  weight = 1)
-
-
-
-
-##########-------INSIGHT TAB-------##############
-#main frame for the ENTRY Tab
-advanced_frame = Frame(master=main_tab, height=820, width=1280, bg=BACKGROUND_COLOR2)
-advanced_frame.pack(fill="both", expand=1)
-
-#frame for the verify and reports section of the tab.
-check_report_frame = Frame(master=advanced_frame, height=820, width=500, bg=ATL_COLOR)
-check_report_frame.grid(column=0, row=0)
-stock_check = StockLook(frame=check_report_frame, entry_update=entry_sec, exit_update=exit_sec)
-
-#frame for the filter section of the tab.
-filter_frame = Frame(master=advanced_frame, height=820, width=780, bg=ATL_COLOR)
-filter_frame.grid(column=1, row=0)
-filter_sec = Filter(frame=filter_frame)
-
-IN_COLUMNS = 2
-for i in range(IN_COLUMNS):
-    advanced_frame.grid_columnconfigure(i,  weight = 1)
+        self.root.mainloop()
 
 
-################################################
-main_tab.add(entry_frame, text="     ENTRY     ")
-main_tab.add(exit_frame, text="     EXIT     ")
-main_tab.add(advanced_frame, text="     ADVANCED     ")
-
-root.mainloop()
+InvManager()
