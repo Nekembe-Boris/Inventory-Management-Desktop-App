@@ -53,8 +53,8 @@ class InvManager():
         self.input_frame.grid(column=0, row=0)
         self.entry_sec = Input(frame=self.input_frame, updates=self.info_sec, exit_up=self.exit_sec)
 
-        ##########-------INSIGHT TAB-------##############
-        #main frame for the ENTRY Tab
+        ##########-------ADVANCED TAB-------##############
+        #main frame for the ADVANCED Tab
         self.advanced_frame = Frame(master=self.main_tab, height=820, width=1280, bg=BACKGROUND_COLOR2)
         self.advanced_frame.pack(fill="both", expand=1)
 
