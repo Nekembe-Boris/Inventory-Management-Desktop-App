@@ -13,16 +13,19 @@ class InvManager():
 
     def __init__(self) :
         self.root = Tk()
-        self.root.title("Inventory Manager 3.0")
-        self.root.geometry("1280x820")
+        self.root.title("Inventory Manager 2.0")
+        self.root.state("zoomed")
         self.root.config(bg=BACKGROUND_COLOR)
+
+        self.screen_height = self.root.winfo_screenheight()
+        self.screen_width = self.root.winfo_screenwidth()
 
         self.main_tab = ttk.Notebook(self.root)
         self.main_tab.pack(fill="both")
 
         ##########-----EXIT TAB-----###############
         #main frame for the EXIT Tab
-        self.exit_frame = Frame(master=self.main_tab, height=820, width=1280, bg=BACKGROUND_COLOR)
+        self.exit_frame = Frame(master=self.main_tab, height=self.screen_height, width=self.screen_width, bg=BACKGROUND_COLOR)
         self.exit_frame.pack(fill="both", expand=1)
 
         #frame for the recent exit section of the tab.
@@ -37,7 +40,7 @@ class InvManager():
 
         ###########-------ENTRY TAB-----################
         #main frame for the ENTRY Tab
-        self.entry_frame = Frame(master=self.main_tab, height=820, width=1280, bg=BACKGROUND_COLOR)
+        self.entry_frame = Frame(master=self.main_tab, height=self.screen_height, width=self.screen_width, bg=BACKGROUND_COLOR)
         self.entry_frame.pack(fill="both", expand=1)
 
         #frame for the recent entries section of the tab.
@@ -52,7 +55,7 @@ class InvManager():
 
         ##########-------ADVANCED TAB-------##############
         #main frame for the ADVANCED Tab
-        self.advanced_frame = Frame(master=self.main_tab, height=820, width=1280, bg=BACKGROUND_COLOR)
+        self.advanced_frame = Frame(master=self.main_tab, height=self.screen_height, width=self.screen_width, bg=BACKGROUND_COLOR)
         self.advanced_frame.pack(fill="both", expand=1)
 
         #frame for the verify and reports section of the tab.
