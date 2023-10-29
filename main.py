@@ -7,10 +7,7 @@ from stk_check import StockLook
 from filter import Filter
 
 
-BACKGROUND_COLOR = "#FFFDD1"
-BACKGROUND_COLOR2 = "#D3D3D3"
-ATL_COLOR = "#949494"
-
+BACKGROUND_COLOR = "#DDD0C8"
 
 class InvManager():
 
@@ -55,16 +52,16 @@ class InvManager():
 
         ##########-------ADVANCED TAB-------##############
         #main frame for the ADVANCED Tab
-        self.advanced_frame = Frame(master=self.main_tab, height=820, width=1280, bg=BACKGROUND_COLOR2)
+        self.advanced_frame = Frame(master=self.main_tab, height=820, width=1280, bg=BACKGROUND_COLOR)
         self.advanced_frame.pack(fill="both", expand=1)
 
         #frame for the verify and reports section of the tab.
-        self.check_report_frame = Frame(master=self.advanced_frame, height=820, width=500, bg=ATL_COLOR)
+        self.check_report_frame = Frame(master=self.advanced_frame, height=820, width=500, bg=BACKGROUND_COLOR)
         self.check_report_frame.grid(column=0, row=0)
         self.stock_check = StockLook(frame=self.check_report_frame, entry_update=self.entry_sec, exit_update=self.exit_sec)
 
         #frame for the filter section of the tab.
-        self.filter_frame = Frame(master=self.advanced_frame, height=820, width=780, bg=ATL_COLOR)
+        self.filter_frame = Frame(master=self.advanced_frame, height=820, width=780, bg=BACKGROUND_COLOR)
         self.filter_frame.grid(column=1, row=0)
         self.filter_sec = Filter(frame=self.filter_frame)
 
