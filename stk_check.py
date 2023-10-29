@@ -8,7 +8,7 @@ from functions import clear, list_box, listboxin
 from entry import Input
 from exit import Exit
 
-BACKGROUND_COLOR = "#949494"
+BACKGROUND_COLOR = "#DDD0C8"
 report_type = ["Entry Records", "Exit Records", "Ledger Records", "Current Stock Level", "Removed From Stock"]
 FONT1=("Century Gothic", 12, "bold")
 FONT2=("Century Gothic", 10, "bold")
