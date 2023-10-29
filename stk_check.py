@@ -26,7 +26,7 @@ class StockLook():
         self.entry_update = entry_update
         self.exit_update = exit_update
 
-        self.in_label = Label(master=self.frame, text="-------VERIFY QTY-------", font=FONT2, bg=BACKGROUND_COLOR, fg="blue")
+        self.in_label = Label(master=self.frame, text="-------VERIFY QTY-------", font=FONT2, bg=BACKGROUND_COLOR, fg="red")
         self.in_label.place(x=150, y=50)
 
         self.article_id_label = Label(master=self.frame,text="ARTICLE-ID", font=FONT2, bg=BACKGROUND_COLOR)
@@ -52,7 +52,7 @@ class StockLook():
         self.select_btn = Button(master=self.frame, text="Remove", font=FONT3, command=self.rem_in_stock)
         self.select_btn.place(x=143, y=380)
 
-        self.report_label = Label(master=self.frame,text="-----REPORTS-----", font=FONT2, bg=BACKGROUND_COLOR, fg="blue")
+        self.report_label = Label(master=self.frame,text="-----REPORTS-----", font=FONT2, bg=BACKGROUND_COLOR, fg="red")
         self.report_label.place(x=150, y=465)
 
         self.radio_state = IntVar()
