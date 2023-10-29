@@ -5,7 +5,7 @@ import pandas
 from functions import  list_box, bind_box, clear, style_bg, forget
 
 
-BACKGROUND_COLOR = "#949494"
+BACKGROUND_COLOR = "#DDD0C8"
 FONT1 = ("Century Gothic", 10, "bold")
 FONT3 = ("Century Gothic", 8, "bold")
 records = ["Entries", "Exit", "General_ledger"]
