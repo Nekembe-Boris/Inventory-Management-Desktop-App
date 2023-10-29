@@ -22,6 +22,9 @@ class Filter():
         self.rec_var = StringVar()
         self.filter_var = StringVar()
 
+        self.filter_label = Label(master=self.frame, text="RECORDS FILTER", font=FONT1, bg=BACKGROUND_COLOR, fg="red")
+        self.filter_label.place(x=350, y=30)
+
         self.rec_select = Label(master=self.frame, text="SELECT RECORD", font=FONT1,  bg=BACKGROUND_COLOR)
         self.rec_select.place(x=50, y=50)
 
