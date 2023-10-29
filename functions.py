@@ -3,7 +3,7 @@
 from tkinter import Frame, Listbox, Label, Entry, END, Button
 import pandas
 
-BACKGROUND_COLOR = "#FFFDD1"
+BACKGROUND_COLOR = "#DDD0C8"
 SKY_BLUE = "#87CEEB"
 FONT1=("Century Gothic", 12, "bold")
 FONT2=("Century Gothic", 10, "bold")
