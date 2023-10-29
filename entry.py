@@ -7,7 +7,6 @@ from functions import clear, forget, get_values, bind_box, get_details, list_box
 from exit import Exit
 import pandas
 
-BACKGROUND_COLOR = "#FFFDD1"
 FONT3 = ("Century Gothic", 8, "bold")
 
 
