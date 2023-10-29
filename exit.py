@@ -6,7 +6,6 @@ import datetime
 from functions import clear, get_values, bind_box, get_details, list_box, listboxin, update, update_input, RecentTransactions, DataInput
 import pandas
 
-BACKGROUND_COLOR = "#FFFDD1"
 
 class RecentExits(RecentTransactions):
     """
