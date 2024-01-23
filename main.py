@@ -1,6 +1,7 @@
 """This module generates the GUI Interface of this software"""
-from tkinter import Tk, Frame
+from tkinter import Frame
 from tkinter import ttk
+import customtkinter
 from entry import Input, RecentEntries
 from exit import Exit, RecentExits
 from stk_check import StockLook
@@ -8,14 +9,15 @@ from filter import Filter
 
 
 BACKGROUND_COLOR = "#DDD0C8"
+customtkinter.set_appearance_mode("dark")
 
 class InvManager():
 
     def __init__(self) :
-        self.root = Tk()
+        self.root = customtkinter.CTk()
         self.root.title("Inventory Manager 2.0")
         self.root.state("zoomed")
-        self.root.config(bg=BACKGROUND_COLOR)
+        # self.root.config(bg=BACKGROUND_COLOR)
 
         self.screen_height = self.root.winfo_screenheight()
         self.screen_width = self.root.winfo_screenwidth()
@@ -25,31 +27,31 @@ class InvManager():
 
         ##########-----EXIT TAB-----###############
         #main frame for the EXIT Tab
-        self.exit_frame = Frame(master=self.main_tab, height=self.screen_height, width=self.screen_width, bg=BACKGROUND_COLOR)
+        self.exit_frame = customtkinter.CTkFrame(master=self.main_tab, height=self.screen_height, width=self.screen_width)
         self.exit_frame.pack(fill="both", expand=1)
 
         #frame for the recent exit section of the tab.
-        self.exit_info_frame = Frame(master=self.exit_frame, height=820, width=720, bg=BACKGROUND_COLOR)
+        self.exit_info_frame = customtkinter.CTkFrame(master=self.exit_frame, height=820, width=720)
         self.exit_info_frame.grid(column=1, row=0)
         self.exit_info_sec = RecentExits(frame=self.exit_info_frame)
 
         #frame for the withdraw section of the Tab
-        self.output_frame = Frame(master=self.exit_frame, height=820, width=550, bg=BACKGROUND_COLOR)
+        self.output_frame = customtkinter.CTkFrame(master=self.exit_frame, height=820, width=550)
         self.output_frame.grid(column=0, row=0)
         self.exit_sec = Exit(frame=self.output_frame, updates=self.exit_info_sec)
 
         ###########-------ENTRY TAB-----################
         #main frame for the ENTRY Tab
-        self.entry_frame = Frame(master=self.main_tab, height=self.screen_height, width=self.screen_width, bg=BACKGROUND_COLOR)
+        self.entry_frame = customtkinter.CTkFrame(master=self.main_tab, height=self.screen_height, width=self.screen_width)
         self.entry_frame.pack(fill="both", expand=1)
 
         #frame for the recent entries section of the tab.
-        self.info_frame = Frame(master=self.entry_frame, height=820, width=720, bg=BACKGROUND_COLOR)
+        self.info_frame = customtkinter.CTkFrame(master=self.entry_frame, height=820, width=720)
         self.info_frame.grid(column=1, row=0)
         self.info_sec = RecentEntries(frame=self.info_frame)
 
         #frame for the input section of the Entry Tab
-        self.input_frame = Frame(master=self.entry_frame, height=820, width=550, bg=BACKGROUND_COLOR)
+        self.input_frame = customtkinter.CTkFrame(master=self.entry_frame, height=820, width=550)
         self.input_frame.grid(column=0, row=0)
         self.entry_sec = Input(frame=self.input_frame, updates=self.info_sec, exit_up=self.exit_sec)
 

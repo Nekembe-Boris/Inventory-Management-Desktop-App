@@ -1,10 +1,11 @@
 """This module is responsible for all the functionalities of the EXIT TAB"""
 
-from tkinter import Frame, END
+from tkinter import END, Frame
 from tkinter import messagebox
 import datetime
-from functions import clear, get_values, bind_box, get_details, list_box, listboxin, update, update_input, RecentTransactions, DataInput
 import pandas
+import customtkinter
+from functions import clear, get_values, bind_box, get_details, list_box, listboxin, update, update_input, RecentTransactions, DataInput
 
 
 class RecentExits(RecentTransactions):
@@ -41,7 +42,7 @@ class Exit(DataInput):
         self.text_label.config(text="[Select Articles above]")
         self.text_label.place(x=150, y=300)
 
-        self.select_btn.config(command=self.selected)
+        self.select_btn.configure(command=self.selected)
         self.select_btn.place(x=10, y=305)
 
         self.article_entry_label.place(x=200, y=350)
@@ -67,15 +68,15 @@ class Exit(DataInput):
         self.exit_qty_label.place(x=200, y=550)
         self.exit_qty_entry.place(x=50, y=570)
 
-        self.cancel_btn.config(bg="red", command=self.cancel_tran)
+        self.cancel_btn.configure(command=self.cancel_tran)
         self.cancel_btn.place(x=340, y=640)
 
-        self.validate_btn.config(text="Confirm Exit", bg="red", command=self.validate_exit)
+        self.validate_btn.configure(text="Confirm Exit", command=self.validate_exit)
         self.validate_btn.place(x=340, y=700)
 
-        listboxin(self.article_listbox,  self.id_listbox)
+        listboxin(self.article_listbox, self.id_listbox)
 
-        bind_box(self.article_listbox,  self.id_listbox, func=self.mousewheel)
+        bind_box(self.article_listbox, self.id_listbox, func=self.mousewheel)
 
 
     def mousewheel(self, event):

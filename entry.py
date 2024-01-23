@@ -44,8 +44,8 @@ class Input(DataInput):
 
         self.text_label.place(x=150, y=465)
 
-        self.select_btn.config(command=self.selected)
-        self.select_btn.place(x=10, y=465)
+        self.select_btn.configure(width=80, command=self.selected)
+        self.select_btn.place(x=10, y=375)
 
         self.article_entry_label.place(x=10, y=520)
 
@@ -63,10 +63,10 @@ class Input(DataInput):
 
         self.qty_entry.place(x=10, y=740)
 
-        self.cancel_btn.config(bg="green", command=self.cancel_tran)
+        self.cancel_btn.configure(command=self.cancel_tran)
         self.cancel_btn.place(x=350, y=560)
 
-        self.validate_btn.config(text="Confirm Entry", bg="green", command=self.validate_entry)
+        self.validate_btn.configure(text="Confirm Entry", command=self.validate_entry)
         self.validate_btn.place(x=350, y=640)
 
         listboxin(self.article_listbox,  self.id_listbox)

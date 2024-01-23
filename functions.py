@@ -1,9 +1,11 @@
 """This module contains functions and Classes that is repeatedly used by all the other scripts"""
 
 from tkinter import Frame, Listbox, Label, Entry, END, Button
+import customtkinter
 import pandas
 
-BACKGROUND_COLOR = "#DDD0C8"
+FG = "white"
+BACKGROUND_COLOR = "#282828"
 SKY_BLUE = "#87CEEB"
 FONT1=("Century Gothic", 12, "bold")
 FONT2=("Century Gothic", 10, "bold")
@@ -222,19 +224,19 @@ class RecentTransactions():
         self.frame = frame
         self.file_name = file
 
-        self.des_label = Label(master=self.frame, text="", font=FONT2,  bg=BACKGROUND_COLOR)
+        self.des_label = Label(master=self.frame, text="", font=FONT2, fg="white", bg=BACKGROUND_COLOR)
         self.des_label.place(x=320, y=10)
 
-        self.article_label= Label(master=self.frame, text="Article", font=FONT3, bg=BACKGROUND_COLOR)
+        self.article_label= Label(master=self.frame, text="Article", font=FONT3, bg=BACKGROUND_COLOR, fg=FG)
         self.article_label.place(x=155, y=45)
 
-        self.id_label= Label(master=self.frame, text="Article ID", font=FONT3, bg=BACKGROUND_COLOR)
+        self.id_label= Label(master=self.frame, text="Article ID", font=FONT3, bg=BACKGROUND_COLOR, fg=FG)
         self.id_label.place(x=355, y=45)
 
-        self.date_label= Label(master=self.frame, text="Date", font=FONT3, bg=BACKGROUND_COLOR)
+        self.date_label= Label(master=self.frame, text="Date", font=FONT3, bg=BACKGROUND_COLOR, fg=FG)
         self.date_label.place(x=530, y=45)
 
-        self.qty_label= Label(master=self.frame, text="QTY", font=FONT3, bg=BACKGROUND_COLOR)
+        self.qty_label= Label(master=self.frame, text="QTY", font=FONT3, bg=BACKGROUND_COLOR, fg=FG)
         self.qty_label.place(x=640, y=45)
 
         self.article_listbox = list_box(frame=self.frame, x_cor=80, y_cor=70, l_height=40, l_width=35)
@@ -266,42 +268,42 @@ class DataInput():
 
         self.article_listbox = ""
 
-        self.article_label = Label(master=self.frame, text="ARTICLE", font=FONT1, bg=BACKGROUND_COLOR)
+        self.article_label = Label(master=self.frame, text="ARTICLE", font=FONT1, fg=FG, bg=BACKGROUND_COLOR)
         self.article_label.place(x=120, y=35)
 
-        self.articleid_label = Label(master=self.frame, text="ARTICLE ID", font=FONT1, bg=BACKGROUND_COLOR)
+        self.articleid_label = Label(master=self.frame, text="ARTICLE ID", font=FONT1, fg=FG, bg=BACKGROUND_COLOR)
         self.articleid_label.place(x=350, y=35)
 
-        self.select_btn = Button(master=self.frame, text="Select", font=FONT3)
+        self.select_btn = customtkinter.CTkButton(master=self.frame, text="Select", font=FONT3)
 
-        self.text_label = Label(master=self.frame, text="[Select existing ARTICLE]", font=FONT3, bg=BACKGROUND_COLOR, fg="red")
+        self.text_label = Label(master=self.frame, text="[Select existing ARTICLE]", font=FONT3, fg="red", bg=BACKGROUND_COLOR)
 
-        self.article_entry_label= Label(master=self.frame, text="ARTICLE", font=FONT3, bg=BACKGROUND_COLOR)
+        self.article_entry_label= Label(master=self.frame, text="ARTICLE", font=FONT3, fg=FG, bg=BACKGROUND_COLOR)
 
         self.article_entry_entry = Entry(master=self.frame, width=50)
 
-        self.id_label = Label(master=self.frame, text="ARTICLE ID", font=FONT3, bg=BACKGROUND_COLOR)
+        self.id_label = Label(master=self.frame, text="ARTICLE ID", font=FONT3, fg=FG, bg=BACKGROUND_COLOR)
 
         self.id_entry = Entry(master=self.frame, width=50)
 
-        self.article_unit_label = Label(master=self.frame, text="UNIT", font=FONT3, bg=BACKGROUND_COLOR)
+        self.article_unit_label = Label(master=self.frame, text="UNIT", font=FONT3, fg=FG, bg=BACKGROUND_COLOR)
 
         self.unit_entry = Entry(master=self.frame, width=50)
 
-        self.article_qty_label = Label(master=self.frame, text="QUANTITY", font=FONT3, bg=BACKGROUND_COLOR)
+        self.article_qty_label = Label(master=self.frame, text="QUANTITY", font=FONT3, fg=FG, bg=BACKGROUND_COLOR)
 
         self.qty_entry = Entry(master=self.frame, width=50)
 
-        self.current_label = Label(master=self.frame, text="Current Qty: ", font=FONT3, bg=BACKGROUND_COLOR, fg="red")
+        self.current_label = Label(master=self.frame, text="Current Qty: ", font=FONT3, fg="red", bg=BACKGROUND_COLOR)
 
-        self.current_qlabel = Label(master=self.frame, text="we", font=FONT3, bg=BACKGROUND_COLOR, fg="red")
+        self.current_qlabel = Label(master=self.frame, text="we", font=FONT3, fg="red", bg=BACKGROUND_COLOR)
 
         self.current_qty_entry = Entry(master=self.frame, width=60)
 
-        self.exit_qty_label = Label(master=self.frame, text="EXIT QTY", font=FONT3, bg=BACKGROUND_COLOR)
+        self.exit_qty_label = Label(master=self.frame, text="EXIT QTY", font=FONT3, fg=FG, bg=BACKGROUND_COLOR)
 
         self.exit_qty_entry = Entry(master=self.frame, width=60)
 
-        self.cancel_btn = Button(master=self.frame, text="Cancel transaction",  font=FONT3, width=26, fg="white")
+        self.cancel_btn = customtkinter.CTkButton(master=self.frame, text="Cancel transaction",  font=FONT3, width=26)
 
-        self.validate_btn= Button(master=self.frame, text="Confirm", font=FONT1, width=20, fg="white")
+        self.validate_btn= customtkinter.CTkButton(master=self.frame, text="Confirm", font=FONT1, width=20)
