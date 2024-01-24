@@ -4,7 +4,7 @@ from tkinter import END, Frame
 from tkinter import messagebox
 import datetime
 import pandas
-import customtkinter
+# import customtkinter
 from functions import clear, get_values, bind_box, get_details, list_box, listboxin, update, update_input, RecentTransactions, DataInput
 
 
@@ -47,26 +47,26 @@ class Exit(DataInput):
 
         self.article_entry_label.place(x=200, y=350)
 
-        self.article_entry_entry.config(width=60)
+        self.article_entry_entry.configure(width=60)
         self.article_entry_entry.place(x=50, y=370)
 
         self.id_label.place(x=190, y=400)
 
-        self.id_entry.config(width=60)
+        self.id_entry.configure(width=60)
         self.id_entry.place(x=50, y=420)
 
         self.article_unit_label.place(x=205, y=450)
 
-        self.unit_entry.config(width=60)
+        self.unit_entry.configure(width=60)
         self.unit_entry.place(x=50, y=470)
 
         self.current_qlabel.config(text="CURRENT QTY", fg="black")
         self.current_qlabel.place(x=185, y=500)
 
-        self.current_qty_entry.place(x=50, y=520)
+        # self.current_qty_entry.place(x=50, y=520)
 
         self.exit_qty_label.place(x=200, y=550)
-        self.exit_qty_entry.place(x=50, y=570)
+        # self.exit_qty_entry.place(x=50, y=570)
 
         self.cancel_btn.configure(command=self.cancel_tran)
         self.cancel_btn.place(x=340, y=640)

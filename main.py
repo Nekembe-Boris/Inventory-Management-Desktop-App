@@ -9,7 +9,7 @@ from filter import Filter
 
 
 BACKGROUND_COLOR = "#DDD0C8"
-customtkinter.set_appearance_mode("dark")
+customtkinter.set_default_color_theme("dark-blue")
 
 class InvManager():
 
@@ -42,7 +42,7 @@ class InvManager():
 
         ###########-------ENTRY TAB-----################
         #main frame for the ENTRY Tab
-        self.entry_frame = customtkinter.CTkFrame(master=self.main_tab, height=self.screen_height, width=self.screen_width)
+        self.entry_frame = customtkinter.CTkFrame(master=self.main_tab, height=self.screen_height, width=self.screen_width, fg_color="#212121")
         self.entry_frame.pack(fill="both", expand=1)
 
         #frame for the recent entries section of the tab.

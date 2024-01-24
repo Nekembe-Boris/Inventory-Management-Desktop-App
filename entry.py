@@ -47,26 +47,26 @@ class Input(DataInput):
         self.select_btn.configure(width=80, command=self.selected)
         self.select_btn.place(x=10, y=375)
 
-        self.article_entry_label.place(x=10, y=520)
+        self.article_entry_label.place(x=10, y=550)
 
-        self.article_entry_entry.place(x=10, y=540)
+        self.article_entry_entry.place(x=10, y=465)
 
-        self.id_label.place(x=10, y=580)
+        self.id_label.place(x=10, y=640)
 
-        self.id_entry.place(x=10, y=600)
+        self.id_entry.place(x=10, y=535)
 
-        self.article_unit_label.place(x=10, y=660)
+        self.article_unit_label.place(x=10, y=725)
 
-        self.unit_entry.place(x=10, y=680)
+        self.unit_entry.place(x=10, y=600)
 
-        self.article_qty_label.place(x=10, y=720)
+        self.article_qty_label.place(x=10, y=810)
 
-        self.qty_entry.place(x=10, y=740)
+        self.qty_entry.place(x=10, y=670)
 
-        self.cancel_btn.configure(command=self.cancel_tran)
+        self.cancel_btn.configure(hover_color="red", command=self.cancel_tran)
         self.cancel_btn.place(x=350, y=560)
 
-        self.validate_btn.configure(text="Confirm Entry", command=self.validate_entry)
+        self.validate_btn.configure(text="Confirm Entry", hover_color="green", command=self.validate_entry)
         self.validate_btn.place(x=350, y=640)
 
         listboxin(self.article_listbox,  self.id_listbox)
@@ -94,8 +94,8 @@ class Input(DataInput):
             )
         else:
 
-            self.current_label.place(x=10, y=763)
-            self.current_qlabel.place(x=80, y=763)
+            self.current_label.place(x=10, y=920)
+            self.current_qlabel.place(x=80, y=920)
 
             self.article_entry_entry.insert(END, art_name[:-5])
             self.id_entry.insert(END, art_id)

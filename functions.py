@@ -1,11 +1,11 @@
 """This module contains functions and Classes that is repeatedly used by all the other scripts"""
 
-from tkinter import Frame, Listbox, Label, Entry, END, Button
+from tkinter import Frame, Listbox, Label, END
 import customtkinter
 import pandas
 
 FG = "white"
-BACKGROUND_COLOR = "#282828"
+BACKGROUND_COLOR = "#212121"
 SKY_BLUE = "#87CEEB"
 FONT1=("Century Gothic", 12, "bold")
 FONT2=("Century Gothic", 10, "bold")
@@ -225,27 +225,27 @@ class RecentTransactions():
         self.file_name = file
 
         self.des_label = Label(master=self.frame, text="", font=FONT2, fg="white", bg=BACKGROUND_COLOR)
-        self.des_label.place(x=320, y=10)
+        self.des_label.place(x=380, y=10)
 
         self.article_label= Label(master=self.frame, text="Article", font=FONT3, bg=BACKGROUND_COLOR, fg=FG)
         self.article_label.place(x=155, y=45)
 
         self.id_label= Label(master=self.frame, text="Article ID", font=FONT3, bg=BACKGROUND_COLOR, fg=FG)
-        self.id_label.place(x=355, y=45)
+        self.id_label.place(x=470, y=45)
 
         self.date_label= Label(master=self.frame, text="Date", font=FONT3, bg=BACKGROUND_COLOR, fg=FG)
-        self.date_label.place(x=530, y=45)
+        self.date_label.place(x=670, y=45)
 
         self.qty_label= Label(master=self.frame, text="QTY", font=FONT3, bg=BACKGROUND_COLOR, fg=FG)
-        self.qty_label.place(x=640, y=45)
+        self.qty_label.place(x=760, y=45)
 
-        self.article_listbox = list_box(frame=self.frame, x_cor=80, y_cor=70, l_height=40, l_width=35)
+        self.article_listbox = list_box(frame=self.frame, x_cor=75, y_cor=70, l_height=40, l_width=50)
 
-        self.ID_listbox = list_box(frame=self.frame, x_cor=300, y_cor=70, l_height=40, l_width=30)
+        self.ID_listbox = list_box(frame=self.frame, x_cor=380, y_cor=70, l_height=40, l_width=40)
 
-        self.date_listbox = list_box(frame=self.frame, x_cor=490, y_cor=70, l_height=40, l_width=20)
+        self.date_listbox = list_box(frame=self.frame, x_cor=625, y_cor=70, l_height=40, l_width=20)
 
-        self.quatity_listbox = list_box(frame=self.frame, x_cor=620, y_cor=70, l_height=40, l_width=10)
+        self.quatity_listbox = list_box(frame=self.frame, x_cor=750, y_cor=70, l_height=40, l_width=10)
 
         bind_box(self.article_listbox, self.ID_listbox, self.date_listbox, self.quatity_listbox, func=self.mousewheel)
         insert_info(self.article_listbox, self.ID_listbox, self.date_listbox, self.quatity_listbox, file=self.file_name)
@@ -280,30 +280,30 @@ class DataInput():
 
         self.article_entry_label= Label(master=self.frame, text="ARTICLE", font=FONT3, fg=FG, bg=BACKGROUND_COLOR)
 
-        self.article_entry_entry = Entry(master=self.frame, width=50)
+        self.article_entry_entry = customtkinter.CTkEntry(master=self.frame, fg_color="white", text_color="black", width=250)
 
         self.id_label = Label(master=self.frame, text="ARTICLE ID", font=FONT3, fg=FG, bg=BACKGROUND_COLOR)
 
-        self.id_entry = Entry(master=self.frame, width=50)
+        self.id_entry = customtkinter.CTkEntry(master=self.frame, fg_color="white", text_color="black", width=250)
 
         self.article_unit_label = Label(master=self.frame, text="UNIT", font=FONT3, fg=FG, bg=BACKGROUND_COLOR)
 
-        self.unit_entry = Entry(master=self.frame, width=50)
+        self.unit_entry = customtkinter.CTkEntry(master=self.frame, fg_color="white", text_color="black", width=250)
 
         self.article_qty_label = Label(master=self.frame, text="QUANTITY", font=FONT3, fg=FG, bg=BACKGROUND_COLOR)
 
-        self.qty_entry = Entry(master=self.frame, width=50)
+        self.qty_entry = customtkinter.CTkEntry(master=self.frame, fg_color="white", text_color="black", placeholder_text="Insert quantity", width=250)
 
         self.current_label = Label(master=self.frame, text="Current Qty: ", font=FONT3, fg="red", bg=BACKGROUND_COLOR)
 
         self.current_qlabel = Label(master=self.frame, text="we", font=FONT3, fg="red", bg=BACKGROUND_COLOR)
 
-        self.current_qty_entry = Entry(master=self.frame, width=60)
+        self.current_qty_entry = customtkinter.CTkEntry(master=self.frame, text_color="black", width=60)
 
         self.exit_qty_label = Label(master=self.frame, text="EXIT QTY", font=FONT3, fg=FG, bg=BACKGROUND_COLOR)
 
-        self.exit_qty_entry = Entry(master=self.frame, width=60)
+        self.exit_qty_entry = customtkinter.CTkEntry(master=self.frame, width=60, text_color="black", placeholder_text="Insert quantity")
 
-        self.cancel_btn = customtkinter.CTkButton(master=self.frame, text="Cancel transaction",  font=FONT3, width=26)
+        self.cancel_btn = customtkinter.CTkButton(master=self.frame, text="Cancel transaction",  font=FONT3, width=180)
 
-        self.validate_btn= customtkinter.CTkButton(master=self.frame, text="Confirm", font=FONT1, width=20)
+        self.validate_btn= customtkinter.CTkButton(master=self.frame, text="Confirm", font=FONT1, width=180)
