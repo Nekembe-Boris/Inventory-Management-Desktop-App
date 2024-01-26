@@ -29,7 +29,7 @@ class StockLook():
         self.entry_update = entry_update
         self.exit_update = exit_update
 
-        self.in_label = Label(master=self.frame, text="[VERIFY QTY]", font=FONT2, bg=BACKGROUND_COLOR, fg=FG)
+        self.in_label = Label(master=self.frame, text="[VERIFY QTY]", font=FONT2, bg=BACKGROUND_COLOR, fg="red")
         self.in_label.place(x=200, y=50)
 
         self.art_id_entry = customtkinter.CTkEntry(master=self.frame, width=120, placeholder_text="Article ID", takefocus=0)
@@ -53,7 +53,7 @@ class StockLook():
         ToolTip(self.refresh_btn, msg="Refresh to Update Inventory")
         ToolTip(self.remove_btn, msg="Remove Selected Article from Inventory")
 
-        self.report_label = Label(master=self.frame,text="[RECORDS]", font=FONT2, bg=BACKGROUND_COLOR, fg=FG)
+        self.report_label = Label(master=self.frame,text="[RECORDS]", font=FONT2, bg=BACKGROUND_COLOR, fg="red")
         self.report_label.place(x=150, y=600)
 
         self.radio_state = IntVar()

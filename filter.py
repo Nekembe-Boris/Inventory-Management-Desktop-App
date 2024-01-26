@@ -1,11 +1,13 @@
 """Module tasked with Filtering on the ADVANCED TAB"""
-from tkinter import Label, StringVar, Button, Frame
-from tkinter import ttk, messagebox
+from tkinter import Label, StringVar, Frame
+from tkinter import messagebox
+import customtkinter
 import pandas
 from functions import  list_box, bind_box, clear, style_bg, forget
 
 
-BACKGROUND_COLOR = "#DDD0C8"
+FG = "white"
+BACKGROUND_COLOR = "#212121"
 FONT1 = ("Century Gothic", 10, "bold")
 FONT3 = ("Century Gothic", 8, "bold")
 records = ["Entries", "Exit", "General_ledger"]
@@ -22,49 +24,45 @@ class Filter():
         self.rec_var = StringVar()
         self.filter_var = StringVar()
 
-        self.filter_label = Label(master=self.frame, text="RECORDS FILTER", font=FONT1, bg=BACKGROUND_COLOR, fg="red")
+        self.filter_label = Label(master=self.frame, text="FILTER RECORDS", font=FONT1, bg=BACKGROUND_COLOR, fg="red")
         self.filter_label.place(x=350, y=30)
 
-        self.rec_select = Label(master=self.frame, text="SELECT RECORD", font=FONT1,  bg=BACKGROUND_COLOR)
-        self.rec_select.place(x=50, y=50)
-
-        self.rec_typebox = ttk.Combobox(master=self.frame, width=25, textvariable=self.rec_var, values=records, font=FONT3)
+        self.rec_typebox = customtkinter.CTkComboBox(master=self.frame, width=250, variable=self.rec_var, values=records, font=FONT3)
+        self.rec_typebox.set("Select Record")
         self.rec_typebox.place(x=50, y=70)
 
-        self.ad_select = Label(master=self.frame, text="Filter By:", font=FONT1,  bg=BACKGROUND_COLOR)
-        self.ad_select.place(x=50, y=100)
+        self.ad_typebox = customtkinter.CTkComboBox(master=self.frame, width=250, variable=self.filter_var, values=ad_filter, font=FONT3)
+        self.ad_typebox.set("Filter By")
+        self.ad_typebox.place(x=50, y=130)
 
-        self.ad_typebox = ttk.Combobox(master=self.frame, width=25, textvariable=self.filter_var, values=ad_filter, font=FONT3)
-        self.ad_typebox.place(x=50, y=120)
+        self.select_btn = customtkinter.CTkButton(master=self.frame, text="Apply", width=80, font=FONT3, command=self.get_info)
+        self.select_btn.place(x=280, y=100)
 
-        self.select_btn = Button(master=self.frame, text="Apply", font=FONT3, command=self.get_info)
-        self.select_btn.place(x=250, y=90)
+        self.filter_btn = customtkinter.CTkButton(master=self.frame, text="Filter", width=80, font=FONT3, command=self.filter_data)
 
-        self.filter_btn = Button(master=self.frame, text="Filter", font=FONT3, bg="#D7E5F0", command=self.filter_data)
+        self.cancel_filter_btn = customtkinter.CTkButton(master=self.frame, text="Cancel", width=80, font=FONT3, hover_color="red", command=self.reset_filter)
 
-        self.fil_details_label= Label(master=self.frame, text="Select:", font=FONT1,  bg=BACKGROUND_COLOR)
+        self.fil_details_box = customtkinter.CTkComboBox(master=self.frame, width=250, font=FONT3)
 
-        self.fil_details_box = ttk.Combobox(master=self.frame, width=25, font=FONT3)
+        self.article_label= Label(master=self.frame, text="Article", font=FONT3, fg=FG, bg=BACKGROUND_COLOR)
+        self.article_label.place(x=240, y=250)
 
-        self.article_label= Label(master=self.frame, text="Article", font=FONT3, bg=BACKGROUND_COLOR)
-        self.article_label.place(x=155, y=180)
+        self.id_label= Label(master=self.frame, text="Article ID", font=FONT3, fg=FG, bg=BACKGROUND_COLOR)
+        self.id_label.place(x=440, y=250)
 
-        self.id_label= Label(master=self.frame, text="Article ID", font=FONT3, bg=BACKGROUND_COLOR)
-        self.id_label.place(x=355, y=180)
+        self.date_label= Label(master=self.frame, text="Date", font=FONT3, fg=FG, bg=BACKGROUND_COLOR)
+        self.date_label.place(x=590, y=250)
 
-        self.date_label= Label(master=self.frame, text="Date", font=FONT3, bg=BACKGROUND_COLOR)
-        self.date_label.place(x=530, y=180)
+        self.qty_label= Label(master=self.frame, text="QTY", font=FONT3, fg=FG, bg=BACKGROUND_COLOR)
+        self.qty_label.place(x=700, y=250)
 
-        self.qty_label= Label(master=self.frame, text="QTY", font=FONT3, bg=BACKGROUND_COLOR)
-        self.qty_label.place(x=640, y=180)
+        self.fil_art_listbox = list_box(frame=self.frame, x_cor=140, y_cor=280, l_height=40, l_width=35)
 
-        self.fil_art_listbox = list_box(frame=self.frame, x_cor=80, y_cor=200, l_height=30, l_width=35)
+        self.fil_id_listbox = list_box(frame=self.frame, x_cor=360, y_cor=280, l_height=40, l_width=30)
 
-        self.fil_id_listbox = list_box(frame=self.frame, x_cor=300, y_cor=200, l_height=30, l_width=30)
+        self.fil_date_listbox = list_box(frame=self.frame, x_cor=550, y_cor=280, l_height=40, l_width=20)
 
-        self.fil_date_listbox = list_box(frame=self.frame, x_cor=490, y_cor=200, l_height=30, l_width=20)
-
-        self.fil_quatity_listbox = list_box(frame=self.frame, x_cor=620, y_cor=200, l_height=30, l_width=10)
+        self.fil_quatity_listbox = list_box(frame=self.frame, x_cor=680, y_cor=280, l_height=40, l_width=10)
 
         bind_box(self.fil_art_listbox, self.fil_id_listbox, self.fil_date_listbox, self.fil_quatity_listbox, func=self.mousewheel)
 
@@ -80,7 +78,7 @@ class Filter():
         """Function fills the Select combobox based on the Record and Filter param selected"""
         sheet = self.rec_typebox.get()
         filter_param = self.ad_typebox.get()
-        clear(self.fil_details_box)
+        # clear(self.fil_details_box)
 
         if not sheet or not filter_param:
             messagebox.showinfo(
@@ -88,10 +86,11 @@ class Filter():
                 message="Select Record or Filter By field empty!"
             )
         else:
-            self.fil_details_label.config(text=f"Select {filter_param}:")
-            self.fil_details_label.place(x=300, y=70)
-            self.fil_details_box.place(x=300, y=90)
-            self.filter_btn.place(x=510, y=90)
+
+            self.fil_details_box.set(f"Select {filter_param}:")
+            self.fil_details_box.place(x=400, y=70)
+            self.filter_btn.place(x=565, y=100)
+            self.cancel_filter_btn.place(x=565, y=130)
 
             try:
                 data = pandas.read_csv(f"./data/{sheet}.csv")
@@ -108,7 +107,7 @@ class Filter():
                     if item not in fil_box_data:
                         fil_box_data.append(item)
 
-                self.fil_details_box.config(values=fil_box_data)
+                self.fil_details_box.configure(values=fil_box_data)
 
 
     def filter_data(self):
@@ -164,5 +163,13 @@ class Filter():
 
                 style_bg(box=box_list, length=rev_index)
 
-                forget(self.fil_details_label, self.fil_details_box, self.filter_btn)
-                clear(self.fil_details_box, self.ad_typebox, self.rec_typebox)
+                forget(self.fil_details_box, self.filter_btn)
+                self.rec_typebox.set("Select Record")
+                self.ad_typebox.set("Filter By")
+
+                
+    def reset_filter(self):
+        """
+        Cancels the ongoing filter
+        """
+        forget(self.fil_details_box, self.filter_btn, self.cancel_filter_btn)

@@ -224,7 +224,7 @@ class RecentTransactions():
         self.frame = frame
         self.file_name = file
 
-        self.des_label = Label(master=self.frame, text="", font=FONT2, fg="white", bg=BACKGROUND_COLOR)
+        self.des_label = Label(master=self.frame, text="", font=FONT2, fg="red", bg=BACKGROUND_COLOR)
         self.des_label.place(x=380, y=10)
 
         self.article_label= Label(master=self.frame, text="Article", font=FONT3, bg=BACKGROUND_COLOR, fg=FG)
