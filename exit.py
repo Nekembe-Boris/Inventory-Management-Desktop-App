@@ -42,36 +42,39 @@ class Exit(DataInput):
         self.text_label.config(text="[Select Articles above]")
         self.text_label.place(x=150, y=300)
 
-        self.select_btn.configure(command=self.selected)
-        self.select_btn.place(x=10, y=305)
+        self.select_btn.configure(width=80, command=self.selected)
+        self.select_btn.place(x=10, y=247)
 
-        self.article_entry_label.place(x=200, y=350)
+        self.article_entry_label.place(x=200, y=380)
 
-        self.article_entry_entry.configure(width=60)
-        self.article_entry_entry.place(x=50, y=370)
+        self.article_entry_entry.configure(width=300)
+        self.article_entry_entry.place(x=50, y=320)
 
-        self.id_label.place(x=190, y=400)
+        self.id_label.place(x=190, y=460)
 
-        self.id_entry.configure(width=60)
-        self.id_entry.place(x=50, y=420)
+        self.id_entry.configure(width=300)
+        self.id_entry.place(x=50, y=385)
 
-        self.article_unit_label.place(x=205, y=450)
+        self.article_unit_label.place(x=205, y=555)
 
-        self.unit_entry.configure(width=60)
-        self.unit_entry.place(x=50, y=470)
+        self.unit_entry.configure(width=300)
+        self.unit_entry.place(x=50, y=460)
 
-        self.current_qlabel.config(text="CURRENT QTY", fg="black")
-        self.current_qlabel.place(x=185, y=500)
+        self.current_qlabel.config(text="CURRENT QTY", fg="white")
+        self.current_qlabel.place(x=185, y=635)
 
-        # self.current_qty_entry.place(x=50, y=520)
+        self.current_qty_entry.configure(width=300)
+        self.current_qty_entry.place(x=50, y=525)
 
-        self.exit_qty_label.place(x=200, y=550)
-        # self.exit_qty_entry.place(x=50, y=570)
+        self.exit_qty_label.place(x=200, y=710)
 
-        self.cancel_btn.configure(command=self.cancel_tran)
+        self.exit_qty_entry.place(x=50, y=590)
+        self.exit_qty_entry.configure(width=300)
+
+        self.cancel_btn.configure(hover_color="red", command=self.cancel_tran)
         self.cancel_btn.place(x=340, y=640)
 
-        self.validate_btn.configure(text="Confirm Exit", command=self.validate_exit)
+        self.validate_btn.configure(hover_color="green",text="Confirm Exit", command=self.validate_exit)
         self.validate_btn.place(x=340, y=700)
 
         listboxin(self.article_listbox, self.id_listbox)

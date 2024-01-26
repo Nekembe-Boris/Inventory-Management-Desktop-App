@@ -1,5 +1,4 @@
 """This module generates the GUI Interface of this software"""
-from tkinter import Frame
 from tkinter import ttk
 import customtkinter
 from entry import Input, RecentEntries
@@ -9,6 +8,7 @@ from filter import Filter
 
 
 BACKGROUND_COLOR = "#DDD0C8"
+FG_COLOR = "#212121"
 customtkinter.set_default_color_theme("dark-blue")
 
 class InvManager():
@@ -27,7 +27,7 @@ class InvManager():
 
         ##########-----EXIT TAB-----###############
         #main frame for the EXIT Tab
-        self.exit_frame = customtkinter.CTkFrame(master=self.main_tab, height=self.screen_height, width=self.screen_width)
+        self.exit_frame = customtkinter.CTkFrame(master=self.main_tab, height=self.screen_height, width=self.screen_width, fg_color=FG_COLOR)
         self.exit_frame.pack(fill="both", expand=1)
 
         #frame for the recent exit section of the tab.
@@ -42,7 +42,7 @@ class InvManager():
 
         ###########-------ENTRY TAB-----################
         #main frame for the ENTRY Tab
-        self.entry_frame = customtkinter.CTkFrame(master=self.main_tab, height=self.screen_height, width=self.screen_width, fg_color="#212121")
+        self.entry_frame = customtkinter.CTkFrame(master=self.main_tab, height=self.screen_height, width=self.screen_width, fg_color=FG_COLOR)
         self.entry_frame.pack(fill="both", expand=1)
 
         #frame for the recent entries section of the tab.
@@ -57,16 +57,16 @@ class InvManager():
 
         ##########-------ADVANCED TAB-------##############
         #main frame for the ADVANCED Tab
-        self.advanced_frame = Frame(master=self.main_tab, height=self.screen_height, width=self.screen_width, bg=BACKGROUND_COLOR)
+        self.advanced_frame = customtkinter.CTkFrame(master=self.main_tab, height=self.screen_height, width=self.screen_width, fg_color=FG_COLOR)
         self.advanced_frame.pack(fill="both", expand=1)
 
         #frame for the verify and reports section of the tab.
-        self.check_report_frame = Frame(master=self.advanced_frame, height=820, width=500, bg=BACKGROUND_COLOR)
+        self.check_report_frame = customtkinter.CTkFrame(master=self.advanced_frame, height=820, width=500)
         self.check_report_frame.grid(column=0, row=0)
         self.stock_check = StockLook(frame=self.check_report_frame, entry_update=self.entry_sec, exit_update=self.exit_sec)
 
         #frame for the filter section of the tab.
-        self.filter_frame = Frame(master=self.advanced_frame, height=820, width=780, bg=BACKGROUND_COLOR)
+        self.filter_frame = customtkinter.CTkFrame(master=self.advanced_frame, height=820, width=780)
         self.filter_frame.grid(column=1, row=0)
         self.filter_sec = Filter(frame=self.filter_frame)
 

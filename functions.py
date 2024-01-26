@@ -298,11 +298,11 @@ class DataInput():
 
         self.current_qlabel = Label(master=self.frame, text="we", font=FONT3, fg="red", bg=BACKGROUND_COLOR)
 
-        self.current_qty_entry = customtkinter.CTkEntry(master=self.frame, text_color="black", width=60)
+        self.current_qty_entry = customtkinter.CTkEntry(master=self.frame, text_color="black", fg_color=FG, width=60)
 
         self.exit_qty_label = Label(master=self.frame, text="EXIT QTY", font=FONT3, fg=FG, bg=BACKGROUND_COLOR)
 
-        self.exit_qty_entry = customtkinter.CTkEntry(master=self.frame, width=60, text_color="black", placeholder_text="Insert quantity")
+        self.exit_qty_entry = customtkinter.CTkEntry(master=self.frame, width=60, text_color="black", fg_color=FG, placeholder_text="Insert quantity")
 
         self.cancel_btn = customtkinter.CTkButton(master=self.frame, text="Cancel transaction",  font=FONT3, width=180)
 
