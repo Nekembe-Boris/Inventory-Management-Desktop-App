@@ -1,10 +1,10 @@
 """This module generates the GUI Interface of this software"""
 from tkinter import ttk
 import customtkinter
-from entry import Input, RecentEntries
-from exit import Exit, RecentExits
-from stk_check import StockLook
-from filter import Filter
+from modules.entry import Input, RecentEntries
+from modules.exit import Exit, RecentExits
+from modules.stk_check import StockLook
+from modules.filter import Filter
 
 
 BACKGROUND_COLOR = "#DDD0C8"
