@@ -70,6 +70,17 @@ class InvManager():
         self.filter_frame.grid(column=1, row=0)
         self.filter_sec = Filter(frame=self.filter_frame)
 
+        
+        ##########-------HOME TAB-------##############
+        #main frame for the ADVANCED Tab
+        self.home_frame = customtkinter.CTkFrame(master=self.main_tab, height=self.screen_height, width=self.screen_width, fg_color=FG_COLOR)
+        self.home_frame.pack(fill="both", expand=1)
+
+        #frame for the Create project section of the tab.
+        self.create_project_frame = customtkinter.CTkFrame(master=self.home_frame, height=820, width=500)
+        self.create_project_frame.grid(column=0, row=0)
+        # self.stock_check = StockLook(frame=self.check_report_frame, entry_update=self.entry_sec, exit_update=self.exit_sec)
+
         #making frame screen responsive
         IN_COLUMNS = 2
         for i in range(IN_COLUMNS):
@@ -78,6 +89,7 @@ class InvManager():
             self.exit_frame.grid_columnconfigure(i,  weight = 1)
 
         ################################################
+        self.main_tab.add(self.home_frame, text="     HOME     ")
         self.main_tab.add(self.entry_frame, text="     ENTRY     ")
         self.main_tab.add(self.exit_frame, text="     EXIT     ")
         self.main_tab.add(self.advanced_frame, text="     ADVANCED     ")
