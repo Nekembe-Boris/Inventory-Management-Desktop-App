@@ -4,7 +4,6 @@ from tkinter import END, Frame
 from tkinter import messagebox
 import datetime
 import pandas
-# import customtkinter
 from modules.functions import clear, get_values, bind_box, get_details, list_box, listboxin, update, update_input, RecentTransactions, DataInput
 
 

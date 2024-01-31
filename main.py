@@ -5,6 +5,7 @@ from modules.entry import Input, RecentEntries
 from modules.exit import Exit, RecentExits
 from modules.stk_check import StockLook
 from modules.filter import Filter
+from modules.home import Home
 
 
 BACKGROUND_COLOR = "#DDD0C8"
@@ -27,7 +28,12 @@ class InvManager():
 
         ##########-----EXIT TAB-----###############
         #main frame for the EXIT Tab
-        self.exit_frame = customtkinter.CTkFrame(master=self.main_tab, height=self.screen_height, width=self.screen_width, fg_color=FG_COLOR)
+        self.exit_frame = customtkinter.CTkFrame(
+            master=self.main_tab,
+            height=self.screen_height,
+            width=self.screen_width,
+            fg_color=FG_COLOR
+            )
         self.exit_frame.pack(fill="both", expand=1)
 
         #frame for the recent exit section of the tab.
@@ -42,7 +48,12 @@ class InvManager():
 
         ###########-------ENTRY TAB-----################
         #main frame for the ENTRY Tab
-        self.entry_frame = customtkinter.CTkFrame(master=self.main_tab, height=self.screen_height, width=self.screen_width, fg_color=FG_COLOR)
+        self.entry_frame = customtkinter.CTkFrame(
+            master=self.main_tab,
+            height=self.screen_height,
+            width=self.screen_width,
+            fg_color=FG_COLOR
+            )
         self.entry_frame.pack(fill="both", expand=1)
 
         #frame for the recent entries section of the tab.
@@ -72,14 +83,23 @@ class InvManager():
 
         
         ##########-------HOME TAB-------##############
-        #main frame for the ADVANCED Tab
-        self.home_frame = customtkinter.CTkFrame(master=self.main_tab, height=self.screen_height, width=self.screen_width, fg_color=FG_COLOR)
-        self.home_frame.pack(fill="both", expand=1)
+        # main frame for the ADVANCED Tab
+        self.home_frame = customtkinter.CTkFrame(
+            master=self.main_tab,
+            height=self.screen_height,
+            width=self.screen_width,
+            fg_color=FG_COLOR
+            )
+        self.home_frame.pack(fill="both")
 
         #frame for the Create project section of the tab.
-        self.create_project_frame = customtkinter.CTkFrame(master=self.home_frame, height=820, width=500)
-        self.create_project_frame.grid(column=0, row=0)
-        # self.stock_check = StockLook(frame=self.check_report_frame, entry_update=self.entry_sec, exit_update=self.exit_sec)
+        self.create_project_frame = Home(
+            frame=self.home_frame,
+            entry_tab=self.entry_sec,
+            exit_tab=self.exit_sec,
+            filter_sec=self.filter_sec,
+            stock=self.stock_check
+            )
 
         #making frame screen responsive
         IN_COLUMNS = 2
@@ -93,6 +113,7 @@ class InvManager():
         self.main_tab.add(self.entry_frame, text="     ENTRY     ")
         self.main_tab.add(self.exit_frame, text="     EXIT     ")
         self.main_tab.add(self.advanced_frame, text="     ADVANCED     ")
+
 
         self.root.mainloop()
 
