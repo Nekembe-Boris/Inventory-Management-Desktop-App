@@ -1,4 +1,6 @@
-"""This module contains functions and Classes that is repeatedly used by all the other scripts"""
+"""
+This module contains functions and Classes that are repeatedly used by all the other modules
+"""
 
 from tkinter import Frame, Listbox, Label, END
 import customtkinter
@@ -43,8 +45,9 @@ def bind_box(*args, func):
 def get_details(listbox, path):
     """
     :param listbox - Listbox to get Article metadata
+    :param path - file path to load data
 
-    Gets the Article, Article ID, Unit and Quantity of the selected material and returns them.
+    Gets the Article, Article ID, Unit and Quantity of the selected article and returns them.
     """
 
     stock_data = pandas.read_csv(f"{path}/data/Stock_level.csv")
@@ -96,6 +99,7 @@ def style_bg(box, length:int):
 def listboxin(*box, path):
     """
     :param *box - listbox to be modified
+    :param path - file path to load data
 
     This function is responsible for inserting data into the Article and Article ID listbox
     """
@@ -111,6 +115,7 @@ def listboxin(*box, path):
 
         rev_index = len(article_list)
 
+        # Line 119 handles a situation where there is just 01 listbox
         if len(box)<2:
             for item in article_list:
                 box[0].insert(0, item)
@@ -128,8 +133,9 @@ def insert_info(*box, path, file):
     """
     :param *box - listbox to be modified
     :param file - File to upload data that will be used by the listboxes
+    :param path - file path to load data
 
-    This function is responsible for inserting data into all Recent Transaction listbox
+    This function is responsible for inserting data into all Recent Transaction listboxes
     """
     try:
 
@@ -164,9 +170,10 @@ def update(*box, file, path):
 
     """
     :param *box - listbox to be modified
+    :param path - file path to load data
     :param file - File to upload data that will be used by the listboxes
     
-    This function is responsible for updating data Recent Transactions listboxes
+    This function is responsible for updating the Recent Transactions listboxes for every new transaction
     """
     try:
 
@@ -192,10 +199,12 @@ def update(*box, file, path):
 def update_input(*box, name:str, old_data:list, path):
     """
     :param *box - listbox to be updated
+    :param path - file path to load data
     :param name - name of Article to be inserted
     :param old_data - old Article List obtained from Stock_level before entry
     
-    Updates the Article and ArticleID listboxes across all TABS
+    - Updates the Article and ArticleID listboxes across TABS for every new transaction
+    - Adds article if it is recorded for the first time
     """
 
     try:
@@ -218,7 +227,7 @@ def update_input(*box, name:str, old_data:list, path):
 
 class RecentTransactions():
     """
-    This class responsible for creating listboxes that display recent transactions
+    This class is a blueprint for creating all the Recent transactions listboxes
     """
 
     def __init__(self, frame:Frame, file):
@@ -262,6 +271,10 @@ class RecentTransactions():
 
 
 class DataInput():
+
+    """
+    This class is a blueprint for the widgets, labels and listboxes for entries or exits
+    """
 
     def __init__(self, frame:Frame, updates):
 

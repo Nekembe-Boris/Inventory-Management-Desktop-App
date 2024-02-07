@@ -113,16 +113,15 @@ class Input(DataInput):
 
     def validate_entry(self):
         """
-        - Gets all Article details and the date, ensure a descriptive Article name/ID, 
-        ensures that only integers are entered as quantity
+        - Gets all Article details and the date, ensure a descriptive Article name/ID 
+        - Ensures that only integers are entered as quantity
         - Appends the transaction data to the Entries, General ledger and 
         Stock level csv files if all conditions have been fulfilled 
         and the file exits otherwise, it creates the files and appends the data
         - If the Article is already in stock and the Article to be stored has the same ARTICLEID 
         as the Article in stock, it deletes the previous Article data 
-        and inserts a new data with an updated quantity 
-        (adds current quantity to new quantity)
-        - Uses the UPDATE and UPDATE_INPUT functionsto all the Article and Article ID on theExit and Entry Tabs
+        and inserts a new data with an updated quantity (adds current quantity to new quantity)
+        - Uses the UPDATE and UPDATE_INPUT functionsto all the Article and Article ID on the Exit and Entry Tabs
         """
 
         current_time = datetime.datetime.now()
@@ -171,7 +170,8 @@ class Input(DataInput):
                     "Quantity" : [art_qty]
                 }
                 new_stk_df = pandas.DataFrame(stk_data)
-
+                
+                # 
                 try:
                     pandas.read_csv(f"{self.file_path}/data/Entries.csv")
                     pandas.read_csv(f"{self.file_path}/data/General_ledger.csv")
