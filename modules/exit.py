@@ -1,7 +1,6 @@
 """This module is responsible for all the functionalities of the EXIT TAB"""
 
-from tkinter import END, Frame
-from tkinter import messagebox
+from tkinter import END, Frame, messagebox
 import datetime
 import pandas
 from modules.functions import clear, get_values, bind_box, get_details, list_box, listboxin, update, update_input, RecentTransactions, DataInput
@@ -28,9 +27,11 @@ class Exit(DataInput):
     - Also responsible for withdrawing Articles from Stock
     """
 
-    def __init__(self, frame:Frame, updates:RecentExits):
+    def __init__(self, frame:Frame, updates:RecentExits, path):
+
         self.frame = frame
         self.update = updates
+        self.file_path = path
 
         super().__init__(frame=self.frame, updates=self.update)
 
@@ -76,7 +77,7 @@ class Exit(DataInput):
         self.validate_btn.configure(hover_color="green",text="Confirm Exit", command=self.validate_exit)
         self.validate_btn.place(x=340, y=700)
 
-        listboxin(self.article_listbox, self.id_listbox)
+        # listboxin(self.article_listbox, self.id_listbox)
 
         bind_box(self.article_listbox, self.id_listbox, func=self.mousewheel)
 
@@ -95,7 +96,7 @@ class Exit(DataInput):
         clear(self.article_entry_entry, self.id_entry, self.unit_entry, self.qty_entry, self.current_qty_entry)
 
         try:
-            art_name, art_id, art_unit, art_qty = get_details(self.article_listbox)
+            art_name, art_id, art_unit, art_qty = get_details(self.article_listbox, path=self.file_path)
         except TypeError:
             messagebox.showinfo(
             title="Error",
@@ -219,6 +220,6 @@ class Exit(DataInput):
 
                     clear(self.article_entry_entry, self.id_entry, self.unit_entry, self.current_qty_entry, self.exit_qty_entry)
 
-                    update(self.update.article_listbox, self.update.ID_listbox, self.update.date_listbox, self.update.quatity_listbox, file="Exit")
+                    # update(self.update.article_listbox, self.update.ID_listbox, self.update.date_listbox, self.update.quatity_listbox, file="Exit")
 
-                    update_input(self.article_listbox, self.id_listbox, name=stock_name, old_data=old_art_list)
+                    # update_input(self.article_listbox, self.id_listbox, name=stock_name, old_data=old_art_list)

@@ -4,6 +4,7 @@ from tkinter import Frame, Listbox, Label, END
 import customtkinter
 import pandas
 
+
 FG = "white"
 BACKGROUND_COLOR = "#212121"
 SKY_BLUE = "#87CEEB"
@@ -39,14 +40,14 @@ def bind_box(*args, func):
         n.bind("<MouseWheel>", func)
 
 
-def get_details(listbox):
+def get_details(listbox, path):
     """
     :param listbox - Listbox to get Article metadata
 
     Gets the Article, Article ID, Unit and Quantity of the selected material and returns them.
     """
 
-    stock_data = pandas.read_csv("./data/Stock_level.csv")
+    stock_data = pandas.read_csv(f"{path}/data/Stock_level.csv")
     selected = ""
 
     for i in listbox.curselection():
@@ -92,7 +93,7 @@ def style_bg(box, length:int):
             line.itemconfigure(i, bg=SKY_BLUE)
 
 
-def listboxin(*box):
+def listboxin(*box, path):
     """
     :param *box - listbox to be modified
 
@@ -100,7 +101,7 @@ def listboxin(*box):
     """
 
     try:
-        stock_data = pandas.read_csv("./data/Stock_level.csv")
+        stock_data = pandas.read_csv(f"{path}/data/Stock_level.csv")
     except FileNotFoundError:
         print("No data")
     else:
@@ -123,7 +124,7 @@ def listboxin(*box):
         style_bg(box, length=rev_index)
 
 
-def insert_info(*box, file):
+def insert_info(*box, path, file):
     """
     :param *box - listbox to be modified
     :param file - File to upload data that will be used by the listboxes
@@ -132,7 +133,7 @@ def insert_info(*box, file):
     """
     try:
 
-        data = pandas.read_csv(f"./data/{file}.csv")
+        data = pandas.read_csv(f"{path}/data/{file}.csv")
     except FileNotFoundError:
         print("No data")
     else:
@@ -159,16 +160,17 @@ def insert_info(*box, file):
         style_bg(box, length=rev_index)
 
 
-def update(*box, file):
+def update(*box, file, path):
 
     """
     :param *box - listbox to be modified
     :param file - File to upload data that will be used by the listboxes
+    
     This function is responsible for updating data Recent Transactions listboxes
     """
     try:
 
-        data = pandas.read_csv(f"./data/{file}.csv")
+        data = pandas.read_csv(f"{path}/data/{file}.csv")
     except FileNotFoundError:
         print("No data")
     else:
@@ -187,7 +189,7 @@ def update(*box, file):
         style_bg(box, length=rec_rev_index)
 
 
-def update_input(*box, name:str, old_data:list):
+def update_input(*box, name:str, old_data:list, path):
     """
     :param *box - listbox to be updated
     :param name - name of Article to be inserted
@@ -197,7 +199,7 @@ def update_input(*box, name:str, old_data:list):
     """
 
     try:
-        stock_data = pandas.read_csv("./data/Stock_level.csv")
+        stock_data = pandas.read_csv(f"{path}/data/Stock_level.csv")
     except FileNotFoundError:
         print("No data")
     else:
@@ -248,7 +250,7 @@ class RecentTransactions():
         self.quatity_listbox = list_box(frame=self.frame, x_cor=750, y_cor=70, l_height=40, l_width=10)
 
         bind_box(self.article_listbox, self.ID_listbox, self.date_listbox, self.quatity_listbox, func=self.mousewheel)
-        insert_info(self.article_listbox, self.ID_listbox, self.date_listbox, self.quatity_listbox, file=self.file_name)
+        # insert_info(self.article_listbox, self.ID_listbox, self.date_listbox, self.quatity_listbox, file=self.file_name)
 
     def mousewheel(self, event):
         """Responsible for binding all listboxes to mousewheel"""

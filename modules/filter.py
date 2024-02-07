@@ -18,8 +18,9 @@ class Filter():
     """
     Filters data and displays filtered data in listboxes
     """
-    def __init__(self, frame:Frame):
+    def __init__(self, frame:Frame, path):
         self.frame = frame
+        self.file_path = path
 
         self.rec_var = StringVar()
         self.filter_var = StringVar()
@@ -76,14 +77,11 @@ class Filter():
 
     def get_info(self):
         """Function fills the Select combobox based on the Record and Filter param selected"""
-        sheet = self.rec_typebox.get()
-        filter_param = self.ad_typebox.get()
-        # clear(self.fil_details_box)
 
-        if not sheet or not filter_param:
+        if (sheet := self.rec_typebox.get()) not in records or (filter_param := self.ad_typebox.get()) not in ad_filter:
             messagebox.showinfo(
                 title="Error",
-                message="Select Record or Filter By field empty!"
+                message="No  Selected Record or Filter By"
             )
         else:
 
@@ -93,7 +91,7 @@ class Filter():
             self.cancel_filter_btn.place(x=565, y=130)
 
             try:
-                data = pandas.read_csv(f"./data/{sheet}.csv")
+                data = pandas.read_csv(f"{self.file_path}/data/{sheet}.csv")
             except FileNotFoundError:
                 messagebox.showinfo(
                 title="Error",
@@ -126,7 +124,7 @@ class Filter():
                 message="Check for empty Fields"
                 )
         else:
-            data = pandas.read_csv(f"./data/{sheet}.csv")
+            data = pandas.read_csv(f"{self.file_path}/data/{sheet}.csv")
 
             filtered_df = data.loc[data[f'{filter_param}'] == filter_key]
 
@@ -136,9 +134,9 @@ class Filter():
                     message="Data does not exist\nVerify filter parameters"
                     )
             else:
-                filtered_df.to_csv("./data/filtered.csv", index=False)
+                filtered_df.to_csv(f"{self.file_path}/data/filtered.csv", index=False)
 
-                filtered_data = pandas.read_csv("./data/filtered.csv")
+                filtered_data = pandas.read_csv(f"{self.file_path}/data/filtered.csv")
                 entries_article_list = filtered_data.Article.to_list()
                 entries_article_id_list = filtered_data.ArticleID.to_list()
                 entries_date_list = filtered_data.Date.to_list()

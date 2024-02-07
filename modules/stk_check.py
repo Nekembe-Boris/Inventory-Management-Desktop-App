@@ -2,9 +2,9 @@
 
 from tkinter import Frame, Label, IntVar, END
 from tkinter import messagebox
-from tktooltip import ToolTip
 import os
 import pandas
+from tktooltip import ToolTip
 import customtkinter
 from modules.functions import clear, list_box, listboxin
 from modules.entry import Input
@@ -24,10 +24,12 @@ class StockLook():
     Delete an Article from Stock.
     - Can also generate ENTRY, EXIT, LEDGER and STOCK LEVEL reports
     """
-    def __init__(self, frame:Frame, entry_update:Input, exit_update:Exit):
+    def __init__(self, frame:Frame, entry_update:Input, exit_update:Exit, path):
+
         self.frame = frame
         self.entry_update = entry_update
         self.exit_update = exit_update
+        self.file_path = path
 
         self.in_label = Label(master=self.frame, text="[VERIFY QTY]", font=FONT2, bg=BACKGROUND_COLOR, fg="red")
         self.in_label.place(x=200, y=50)
@@ -68,21 +70,21 @@ class StockLook():
         self.gen_excel_btn = customtkinter.CTkButton(master=frame, text="GENERATE EXCEL SHEET",  font=FONT2, hover_color="green", command=self.generate_excel)
         self.gen_excel_btn.place(x=170, y=600)
 
-        listboxin(self.ch_listbox)
+        # listboxin(self.ch_listbox)
 
 
     def refresh(self):
         """Reloads the listbox to get current stock data"""
         clear(self.ch_listbox)
 
-        listboxin((self.ch_listbox))
+        listboxin(self.ch_listbox, path=self.file_path)
 
 
     def check(self):
         """
         - Loops through the stock data to update the quantity and inserts the ArticleID and quantity of the selected material in their entries so that the current stock quantity can be known
         """
-        selected = ""
+        # selected = ""
 
         clear( self.art_id_entry, self.ch_qty_entry)
 
@@ -90,7 +92,7 @@ class StockLook():
             selected = self.ch_listbox.get(self.ch_listbox.curselection())
 
         try:
-            stock_data = pandas.read_csv("./data/Stock_level.csv")
+            stock_data = pandas.read_csv(f"{self.file_path}/data/Stock_level.csv")
         except FileNotFoundError:
             print("No data")
         else:
@@ -124,8 +126,8 @@ class StockLook():
                     message="Record does not exit"
                 )
             else:
-                data.to_excel(f"./reports/{record_type[radio_get]}.xlsx", index=False)
-                os.system(f'start "excel" "./reports/{record_type[radio_get]}.xlsx"')
+                data.to_excel(f"{self.file_path}/reports/{record_type[radio_get]}.xlsx", index=False)
+                os.system(f'start "excel" "{self.file_path}/reports/{record_type[radio_get]}.xlsx"')
             self.radio_state.set(-1)
 
 
@@ -144,7 +146,7 @@ class StockLook():
                 )
         else:
             try:
-                data = pandas.read_csv("./data/Stock_level.csv")
+                data = pandas.read_csv(f"{self.file_path}/data/Stock_level.csv")
             except FileNotFoundError:
                 messagebox.showinfo(
                         title="Error",
@@ -167,22 +169,22 @@ class StockLook():
                         rem_data = pandas.DataFrame(del_data)
                         sheet_data = pandas.DataFrame(data)
                         try:
-                            pandas.read_csv("./data/Removed.csv")
+                            pandas.read_csv(f"{self.file_path}/data/Removed.csv")
                         except FileNotFoundError:
-                            rem_data.to_csv("./data/Removed.csv", mode='a', index=False)
+                            rem_data.to_csv(f"{self.file_path}/data/Removed.csv", mode='a', index=False)
                         else:
-                            rem_data.to_csv("./data/Removed.csv", mode='a', index=False, header=False)
+                            rem_data.to_csv(f"{self.file_path}/data/Removed.csv", mode='a', index=False, header=False)
 
                         for (i, row) in sheet_data.iterrows():
 
                             if row.Article == selected:
                                 sheet_data = data.drop(data.index[i], axis=0)
-                                sheet_data.to_csv("./data/Stock_level.csv", index=False)
+                                sheet_data.to_csv(f"{self.file_path}/data/Stock_level.csv", index=False)
 
                         del_index = self.ch_listbox.get(0, END).index(selected)
                         self.ch_listbox.delete(del_index)
 
                         clear(self.entry_update.article_listbox, self.entry_update.id_listbox, self.exit_update.article_listbox, self.exit_update.id_listbox)
 
-                        listboxin(self.entry_update.article_listbox, self.entry_update.id_listbox)
-                        listboxin(self.exit_update.article_listbox, self.exit_update.id_listbox)
+                        listboxin(self.entry_update.article_listbox, self.entry_update.id_listbox, path=self.file_path)
+                        listboxin(self.exit_update.article_listbox, self.exit_update.id_listbox, path=self.file_path)

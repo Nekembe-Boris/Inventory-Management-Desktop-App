@@ -31,11 +31,12 @@ class Input(DataInput):
     - This class displays the Article and Article ID listboxes
     - Also responsible for registering ENTRIES
     """
-    def __init__(self, frame:Frame, updates:RecentEntries,  exit_up:Exit):
+    def __init__(self, frame:Frame, updates:RecentEntries,  exit_up:Exit, path):
 
         self.frame = frame
         self.update = updates
         self.exit_updates = exit_up
+        self.file_path = path
 
         super().__init__(frame=self.frame, updates=self.update)
 
@@ -70,7 +71,7 @@ class Input(DataInput):
         self.validate_btn.configure(text="Confirm Entry", hover_color="green", command=self.validate_entry)
         self.validate_btn.place(x=350, y=640)
 
-        listboxin(self.article_listbox,  self.id_listbox)
+        listboxin(self.article_listbox,  self.id_listbox, path=self.file_path)
 
         bind_box(self.article_listbox,  self.id_listbox, func=self.mousewheel)
 
@@ -87,7 +88,7 @@ class Input(DataInput):
         """
         clear(self.article_entry_entry, self.id_entry, self.unit_entry, self.qty_entry)
         try:
-            art_name, art_id, art_unit, art_qty = get_details(self.article_listbox)
+            art_name, art_id, art_unit, art_qty = get_details(self.article_listbox, path=self.file_path)
         except TypeError:
             messagebox.showinfo(
             title="Error",
@@ -172,18 +173,18 @@ class Input(DataInput):
                 new_stk_df = pandas.DataFrame(stk_data)
 
                 try:
-                    pandas.read_csv("../data/Entries.csv")
-                    pandas.read_csv("../data/General_ledger.csv")
-                    stock_data = pandas.read_csv("../data/Stock_level.csv")
+                    pandas.read_csv(f"{self.file_path}/data/Entries.csv")
+                    pandas.read_csv(f"{self.file_path}/data/General_ledger.csv")
+                    stock_data = pandas.read_csv(f"{self.file_path}/data/Stock_level.csv")
                 except FileNotFoundError:
-                    d_f.to_csv("../data/Entries.csv", mode='a', index=False)
-                    d_f.to_csv("../data/General_ledger.csv", mode='a', index=False)
-                    new_stk_df.to_csv("../data/Stock_level.csv", mode='a', index=False)
+                    d_f.to_csv(f"{self.file_path}/data/Entries.csv", mode='a', index=False)
+                    d_f.to_csv(f"{self.file_path}/data/General_ledger.csv", mode='a', index=False)
+                    new_stk_df.to_csv(f"{self.file_path}/data/Stock_level.csv", mode='a', index=False)
                     old_art_list = []
                 else:
                     stk_df = pandas.DataFrame(stock_data)
-                    d_f.to_csv("../data/Entries.csv", mode='a', index=False, header=False)
-                    d_f.to_csv("../data/General_ledger.csv", mode='a', index=False, header=False)
+                    d_f.to_csv(f"{self.file_path}/data/Entries.csv", mode='a', index=False, header=False)
+                    d_f.to_csv(f"{self.file_path}/data/General_ledger.csv", mode='a', index=False, header=False)
 
                     old_art_list = stock_data.Article.to_list()
                     stock_lenght = len(stock_data.Article.to_list())
@@ -193,7 +194,7 @@ class Input(DataInput):
                         if row.Article == stock_name and row.ArticleID == art_id:
 
                             stk_df = stk_df.drop(stk_df.index[i], axis=0)
-                            stk_df.to_csv("../data/Stock_level.csv", index=False)
+                            stk_df.to_csv(f"{self.file_path}/data/Stock_level.csv", index=False)
 
                             updated_data = {
                                 "ArticleID": [art_id.title()],
@@ -202,18 +203,19 @@ class Input(DataInput):
                                 "Quantity" : [int(art_qty) + row.Quantity]
                             }
                             updated_stk_df = pandas.DataFrame(updated_data)
-                            updated_stk_df.to_csv("../data/Stock_level.csv", mode='a', index=False, header=False)
+                            updated_stk_df.to_csv(f"{self.file_path}/data/Stock_level.csv", mode='a', index=False, header=False)
                             stock_lenght -= 1
 
                     #This line of code checks to see if a new record was created to avoid duplicating entries
                     if stock_lenght == len(stock_data.Article.to_list()):
-                        new_stk_df.to_csv("../data/Stock_level.csv", mode='a', index=False, header=False)
+                        new_stk_df.to_csv(f"{self.file_path}/data/Stock_level.csv", mode='a', index=False, header=False)
 
                 clear(self.article_entry_entry, self.id_entry, self.unit_entry, self.qty_entry)
 
 
-                update(self.update.article_listbox, self.update.ID_listbox, self.update.date_listbox, self.update.quatity_listbox, file="Entries")
+                update(self.update.article_listbox, self.update.ID_listbox, self.update.date_listbox, self.update.quatity_listbox, file="Entries", path=self.file_path)
 
-                update_input(self.article_listbox, self.id_listbox, self.exit_updates.article_listbox, self.exit_updates.id_listbox, name=stock_name, old_data=old_art_list)
+                update_input(self.article_listbox, self.id_listbox, self.exit_updates.article_listbox, self.exit_updates.id_listbox, name=stock_name, old_data=old_art_list, path=self.file_path)
+
 
                 forget(self.current_label, self.current_qlabel)
