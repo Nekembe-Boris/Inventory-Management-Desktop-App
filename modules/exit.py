@@ -3,7 +3,7 @@
 from tkinter import END, Frame, messagebox
 import datetime
 import pandas
-from modules.functions import clear, get_values, bind_box, get_details, list_box, listboxin, update, update_input, RecentTransactions, DataInput
+from modules.functions import clear, get_values, bind_box, get_details, list_box, update, update_input, RecentTransactions, DataInput
 
 
 class RecentExits(RecentTransactions):
@@ -77,8 +77,6 @@ class Exit(DataInput):
         self.validate_btn.configure(hover_color="green",text="Confirm Exit", command=self.validate_exit)
         self.validate_btn.place(x=340, y=700)
 
-        # listboxin(self.article_listbox, self.id_listbox)
-
         bind_box(self.article_listbox, self.id_listbox, func=self.mousewheel)
 
 
@@ -147,6 +145,7 @@ class Exit(DataInput):
             article_dict = chosen_article.to_dict(orient="records")
             old_art_list = stock_data.Article.to_list()
 
+            # line 149 - 162 checks the validity of collected data
             if art_id != article_dict[0]["ArticleID"] or stock_name != article_dict[0]["Article"] or art_unit != article_dict[0]["Unit"] or int(cur_qty) != article_dict[0]["Quantity"]:
                 messagebox.showinfo(
                 title="Error",
@@ -184,6 +183,7 @@ class Exit(DataInput):
                     }
                     exit_df = pandas.DataFrame(exit_data)
 
+                    # General ledger needs a seperate dataframe since it records digit with a (-) in front
                     gl_data = {
                         "Date" : [date],
                         "Time" : [f"{current_time.strftime('%H:%M:%S')}"],
@@ -220,6 +220,6 @@ class Exit(DataInput):
 
                     clear(self.article_entry_entry, self.id_entry, self.unit_entry, self.current_qty_entry, self.exit_qty_entry)
 
-                    # update(self.update.article_listbox, self.update.ID_listbox, self.update.date_listbox, self.update.quatity_listbox, file="Exit")
+                    update(self.update.article_listbox, self.update.ID_listbox, self.update.date_listbox, self.update.quatity_listbox, file="Exit", path=self.file_path)
 
-                    # update_input(self.article_listbox, self.id_listbox, name=stock_name, old_data=old_art_list)
+                    update_input(self.article_listbox, self.id_listbox, name=stock_name, old_data=old_art_list, path=self.file_path)

@@ -84,7 +84,8 @@ class Input(DataInput):
 
     def selected(self):
         """
-        Uses the get_details function to auto insert the article name, ID, unit and display the current quantity
+        Uses the get_details function to auto insert the article name, ID, unit and
+        display the current quantity into their respective entry boxes
         """
         clear(self.article_entry_entry, self.id_entry, self.unit_entry, self.qty_entry)
         try:
@@ -113,15 +114,16 @@ class Input(DataInput):
 
     def validate_entry(self):
         """
-        - Gets all Article details and the date, ensure a descriptive Article name/ID 
+        - Gets all Article details and the date
+        - Ensure a descriptive Article name/ID 
         - Ensures that only integers are entered as quantity
         - Appends the transaction data to the Entries, General ledger and 
         Stock level csv files if all conditions have been fulfilled 
-        and the file exits otherwise, it creates the files and appends the data
+        and the file exists otherwise, it creates the files and appends the data
         - If the Article is already in stock and the Article to be stored has the same ARTICLEID 
         as the Article in stock, it deletes the previous Article data 
         and inserts a new data with an updated quantity (adds current quantity to new quantity)
-        - Uses the UPDATE and UPDATE_INPUT functionsto all the Article and Article ID on the Exit and Entry Tabs
+        - Uses the UPDATE and UPDATE_INPUT functions to update all the Article and Article ID on the Exit and Entry Tabs
         """
 
         current_time = datetime.datetime.now()
@@ -130,6 +132,7 @@ class Input(DataInput):
         art_name, art_id, art_unit, art_qty, *_ = get_values(self.article_entry_entry, self.id_entry, self.unit_entry, self.qty_entry)
         stock_name = f"{art_name.upper()}[{art_id[:3].title()}]"
 
+        # line 136 - 146 checks the validity of inputs
         if len(art_name) < 7 or len(art_id) < 4:
             messagebox.showinfo(
                 title="Article Error",
@@ -153,6 +156,8 @@ class Input(DataInput):
                 )
 
             if tran_validate is True:
+
+                # creating a dataframe for registration in Entries and General ledger
                 new_data = {
                     "Date" : [date],
                     "Time" : [f"{current_time.strftime('%H:%M:%S')}"],
@@ -163,6 +168,7 @@ class Input(DataInput):
                 }
                 d_f = pandas.DataFrame(new_data)
 
+                # dataframe for Stockfile
                 stk_data = {
                     "ArticleID": [art_id.title()],
                     "Article" : [stock_name],
@@ -170,18 +176,18 @@ class Input(DataInput):
                     "Quantity" : [art_qty]
                 }
                 new_stk_df = pandas.DataFrame(stk_data)
-                
-                # 
+
+
                 try:
                     pandas.read_csv(f"{self.file_path}/data/Entries.csv")
                     pandas.read_csv(f"{self.file_path}/data/General_ledger.csv")
                     stock_data = pandas.read_csv(f"{self.file_path}/data/Stock_level.csv")
-                except FileNotFoundError:
+                except FileNotFoundError:  # creates file with header (key) if file does not exist
                     d_f.to_csv(f"{self.file_path}/data/Entries.csv", mode='a', index=False)
                     d_f.to_csv(f"{self.file_path}/data/General_ledger.csv", mode='a', index=False)
                     new_stk_df.to_csv(f"{self.file_path}/data/Stock_level.csv", mode='a', index=False)
                     old_art_list = []
-                else:
+                else: # only appends relevent new data to the existing file
                     stk_df = pandas.DataFrame(stock_data)
                     d_f.to_csv(f"{self.file_path}/data/Entries.csv", mode='a', index=False, header=False)
                     d_f.to_csv(f"{self.file_path}/data/General_ledger.csv", mode='a', index=False, header=False)
@@ -191,11 +197,12 @@ class Input(DataInput):
 
                     for (i, row) in stk_df.iterrows():
 
-                        if row.Article == stock_name and row.ArticleID == art_id:
+                        if row.Article == stock_name and row.ArticleID == art_id:  # checks if Article and ArticleID are the same
 
-                            stk_df = stk_df.drop(stk_df.index[i], axis=0)
-                            stk_df.to_csv(f"{self.file_path}/data/Stock_level.csv", index=False)
+                            stk_df = stk_df.drop(stk_df.index[i], axis=0) # deletes the row with the old article info if it is match
+                            stk_df.to_csv(f"{self.file_path}/data/Stock_level.csv", index=False) # saves new file
 
+                            #creates a dataframe that with new quantity for the article and appends to stockfile
                             updated_data = {
                                 "ArticleID": [art_id.title()],
                                 "Article" : [stock_name],
@@ -204,18 +211,15 @@ class Input(DataInput):
                             }
                             updated_stk_df = pandas.DataFrame(updated_data)
                             updated_stk_df.to_csv(f"{self.file_path}/data/Stock_level.csv", mode='a', index=False, header=False)
+
+                            #an indicator for a succesfull procedure
                             stock_lenght -= 1
 
-                    #This line of code checks to see if a new record was created to avoid duplicating entries
+                    #This line of code checks to see if a new record was created to avoid duplicating entries in case the article is being recorded for the 1st time
                     if stock_lenght == len(stock_data.Article.to_list()):
                         new_stk_df.to_csv(f"{self.file_path}/data/Stock_level.csv", mode='a', index=False, header=False)
 
                 clear(self.article_entry_entry, self.id_entry, self.unit_entry, self.qty_entry)
-
-
                 update(self.update.article_listbox, self.update.ID_listbox, self.update.date_listbox, self.update.quatity_listbox, file="Entries", path=self.file_path)
-
                 update_input(self.article_listbox, self.id_listbox, self.exit_updates.article_listbox, self.exit_updates.id_listbox, name=stock_name, old_data=old_art_list, path=self.file_path)
-
-
                 forget(self.current_label, self.current_qlabel)

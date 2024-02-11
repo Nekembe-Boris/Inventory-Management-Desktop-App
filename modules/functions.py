@@ -101,7 +101,8 @@ def listboxin(*box, path):
     :param *box - listbox to be modified
     :param path - file path to load data
 
-    This function is responsible for inserting data into the Article and Article ID listbox
+    - This function is responsible for inserting data into the Article and Article ID listbox
+    - Runs only once; when a project is selected
     """
 
     try:
@@ -135,7 +136,8 @@ def insert_info(*box, path, file):
     :param file - File to upload data that will be used by the listboxes
     :param path - file path to load data
 
-    This function is responsible for inserting data into all Recent Transaction listboxes
+    - This function is responsible for inserting data into all Recent Transaction listboxes
+    - Runs only once; when a project is selected
     """
     try:
 
