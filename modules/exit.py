@@ -183,7 +183,7 @@ class Exit(DataInput):
                     }
                     exit_df = pandas.DataFrame(exit_data)
 
-                    # General ledger needs a seperate dataframe since it records digit with a (-) in front
+                    #  General ledger needs a seperate dataframe since it records digit with a (-) in front
                     gl_data = {
                         "Date" : [date],
                         "Time" : [f"{current_time.strftime('%H:%M:%S')}"],
@@ -194,6 +194,7 @@ class Exit(DataInput):
                     }
                     gl_df = pandas.DataFrame(gl_data)
 
+                    #dataframe for stockfile
                     new_stk_data = {
                         "Article": [art_id],
                         "ArticleID" : [stock_name],
@@ -212,6 +213,7 @@ class Exit(DataInput):
                     finally:
                         gl_df.to_csv("./data/General_ledger.csv", mode='a', index=False, header=False)
 
+                        #updating the article qty in Stock csv file
                         for (i, row) in stk_df.iterrows():
                             if row.Article == stock_name:
                                 stk_df = stk_df.drop(stk_df.index[i], axis=0)

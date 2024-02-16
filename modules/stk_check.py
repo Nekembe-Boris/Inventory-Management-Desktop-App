@@ -58,6 +58,7 @@ class StockLook():
         self.report_label = Label(master=self.frame,text="[RECORDS]", font=FONT2, bg=BACKGROUND_COLOR, fg="red")
         self.report_label.place(x=150, y=600)
 
+        #creating radiobuttons
         self.radio_state = IntVar()
         x_cor = 10
         y_cor = 500
@@ -84,7 +85,6 @@ class StockLook():
         """
         - Loops through the stock data to update the quantity and inserts the ArticleID and quantity of the selected material in their entries so that the current stock quantity can be known
         """
-        # selected = ""
 
         clear( self.art_id_entry, self.ch_qty_entry)
 

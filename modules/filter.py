@@ -28,13 +28,13 @@ class Filter():
         self.filter_label = Label(master=self.frame, text="FILTER RECORDS", font=FONT1, bg=BACKGROUND_COLOR, fg="red")
         self.filter_label.place(x=350, y=30)
 
-        self.rec_typebox = customtkinter.CTkComboBox(master=self.frame, width=250, variable=self.rec_var, values=records, font=FONT3)
-        self.rec_typebox.set("Select Record")
-        self.rec_typebox.place(x=50, y=70)
+        self.record_type = customtkinter.CTkComboBox(master=self.frame, width=250, variable=self.rec_var, values=records, font=FONT3)
+        self.record_type.set("Select Record")
+        self.record_type.place(x=50, y=70)
 
-        self.ad_typebox = customtkinter.CTkComboBox(master=self.frame, width=250, variable=self.filter_var, values=ad_filter, font=FONT3)
-        self.ad_typebox.set("Filter By")
-        self.ad_typebox.place(x=50, y=130)
+        self.filter_record_param = customtkinter.CTkComboBox(master=self.frame, width=250, variable=self.filter_var, values=ad_filter, font=FONT3)
+        self.filter_record_param.set("Filter By")
+        self.filter_record_param.place(x=50, y=130)
 
         self.select_btn = customtkinter.CTkButton(master=self.frame, text="Apply", width=80, font=FONT3, command=self.get_info)
         self.select_btn.place(x=280, y=100)
@@ -78,10 +78,10 @@ class Filter():
     def get_info(self):
         """Function fills the Select combobox based on the Record and Filter param selected"""
 
-        if (sheet := self.rec_typebox.get()) not in records or (filter_param := self.ad_typebox.get()) not in ad_filter:
+        if (sheet := self.record_type.get()) not in records or (filter_param := self.filter_record_param.get()) not in ad_filter:
             messagebox.showinfo(
                 title="Error",
-                message="No  Selected Record or Filter By"
+                message="Verify filter inputs"
             )
         else:
 
@@ -98,7 +98,7 @@ class Filter():
                 message=f"{sheet} data does not exist yet"
                 )
             else:
-
+                # filtering the rrecord type by the filter param
                 new_box_data = data.loc[:, f"{filter_param}"].to_list()
                 fil_box_data = []
                 for item in new_box_data:
@@ -114,8 +114,8 @@ class Filter():
         """
         clear(self.fil_art_listbox, self.fil_id_listbox, self.fil_date_listbox, self.fil_quatity_listbox)
 
-        sheet = self.rec_typebox.get()
-        filter_param = self.ad_typebox.get()
+        sheet = self.record_type.get()
+        filter_param = self.filter_record_param.get()
         filter_key = self.fil_details_box.get()
 
         if not sheet or not filter_param or not filter_key:
@@ -161,9 +161,9 @@ class Filter():
 
                 style_bg(box=box_list, length=rev_index)
 
-                forget(self.fil_details_box, self.filter_btn)
-                self.rec_typebox.set("Select Record")
-                self.ad_typebox.set("Filter By")
+                forget(self.fil_details_box, self.filter_btn, self.cancel_filter_btn)
+                self.record_type.set("Select Record")
+                self.filter_record_param.set("Filter By")
 
                 
     def reset_filter(self):

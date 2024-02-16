@@ -1,4 +1,4 @@
-"""This module generates the GUI Interface of this software"""
+"""This module generates the GUI Interface of this application"""
 import os
 from tkinter import ttk
 import customtkinter
@@ -33,8 +33,9 @@ class InvManager():
 
         self.directory_path = "./projects"
 
-        ##########-----EXIT TAB-----###############
-        #main frame for the EXIT Tab
+
+        # EXIT TAB
+        # main frame for the EXIT Tab
         self.exit_frame = customtkinter.CTkFrame(
             master=self.main_tab,
             height=self.screen_height,
@@ -53,7 +54,8 @@ class InvManager():
         self.output_frame.grid(column=0, row=0)
         self.exit_sec = Exit(frame=self.output_frame, updates=self.exit_info_sec, path=self.directory_path)
 
-        ###########-------ENTRY TAB-----################
+
+        #ENTRY TAB
         #main frame for the ENTRY Tab
         self.entry_frame = customtkinter.CTkFrame(
             master=self.main_tab,
@@ -73,7 +75,8 @@ class InvManager():
         self.input_frame.grid(column=0, row=0)
         self.entry_sec = Input(frame=self.input_frame, updates=self.info_sec, exit_up=self.exit_sec, path=self.directory_path)
 
-        ##########-------ADVANCED TAB-------##############
+
+        #ADVANCED TAB
         #main frame for the ADVANCED Tab
         self.advanced_frame = customtkinter.CTkFrame(master=self.main_tab, height=self.screen_height, width=self.screen_width, fg_color=FG_COLOR)
         self.advanced_frame.pack(fill="both", expand=1)
@@ -89,7 +92,7 @@ class InvManager():
         self.filter_sec = Filter(frame=self.filter_frame, path=self.directory_path)
 
         
-        ##########-------HOME TAB-------##############
+        #HOME TAB
         self.home_frame = customtkinter.CTkFrame(
             master=self.main_tab,
             height=self.screen_height,
@@ -112,7 +115,7 @@ class InvManager():
             )
 
 
-        #making frame screen responsive
+        #making frames responsive
         IN_COLUMNS = 2
         for i in range(IN_COLUMNS):
             self.advanced_frame.grid_columnconfigure(i,  weight = 1)
@@ -120,7 +123,7 @@ class InvManager():
             self.entry_frame.grid_columnconfigure(i,  weight = 1)
             self.exit_frame.grid_columnconfigure(i,  weight = 1)
 
-        ################################################
+        #creating tabs
         self.main_tab.add(self.home_frame, text="     HOME     ")
         self.main_tab.add(self.entry_frame, text="     ENTRY     ")
         self.main_tab.add(self.exit_frame, text="     EXIT     ")
