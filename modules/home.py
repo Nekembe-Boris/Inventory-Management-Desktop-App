@@ -29,7 +29,8 @@ class Project:
             exit_tab:Exit,
             recent_exit : RecentExits,
             filter_sec:Filter,
-            stock:StockLook
+            stock:StockLook,
+            title
 
         ):
 
@@ -41,6 +42,7 @@ class Project:
         self.recent_exit = recent_exit
         self.filter_sec = filter_sec
         self.stock_tab = stock
+        self.current_project = title
 
         self.project_list = os.listdir("./projects")
         self.project_folders = []
@@ -97,6 +99,8 @@ class Project:
 
             self.stock_tab.file_path = f"./projects/{project_name}/{year}"
 
+            self.current_project.title(f"XERXES - {project_name} [{year}]")
+
 
     def select_project (self):
         """
@@ -140,6 +144,9 @@ class Project:
             self.filter_sec.file_path = f"./projects/{selected_project}/{selected_year}"
 
             self.stock_tab.file_path = f"./projects/{selected_project}/{selected_year}"
+
+            self.current_project.title(f"XERXES - {selected_project} [{selected_year}]")
+
 
 
 

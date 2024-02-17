@@ -26,10 +26,15 @@ class App():
         self.main_tab = ttk.Notebook(self.root)
         self.main_tab.pack(fill="both")
 
-        try:
-            os.path.isdir("./projects")
-        except FileNotFoundError:
+        if os.path.isdir("./projects"):
+            pass
+        else:
             os.mkdir("./projects")
+
+        # try:
+        #     os.path.isdir("./projects")
+        # except FileNotFoundError:
+        #     os.mkdir("./projects")
 
         self.directory_path = "./projects"
 
@@ -111,7 +116,8 @@ class App():
             exit_tab = self.exit_sec,
             recent_exit = self.exit_info_sec,
             filter_sec=self.filter_sec,
-            stock=self.stock_check
+            stock=self.stock_check,
+            title= self.root
             )
 
 
