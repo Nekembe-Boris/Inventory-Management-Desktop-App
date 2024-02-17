@@ -13,7 +13,7 @@ BACKGROUND_COLOR = "#DDD0C8"
 FG_COLOR = "#212121"
 customtkinter.set_default_color_theme("dark-blue")
 
-class InvManager():
+class App():
 
     def __init__(self) :
         self.root = customtkinter.CTk()
@@ -133,4 +133,6 @@ class InvManager():
         self.root.mainloop()
 
 
-InvManager()
+
+if __name__ == '__main__':
+    App()
