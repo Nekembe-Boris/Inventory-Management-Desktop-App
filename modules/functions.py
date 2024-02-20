@@ -41,9 +41,6 @@ def bind_box(*args, func):
     for n in args:
         n.bind("<MouseWheel>", func)
 
-def combo_select(combob, func):
-    combob.bind("<<ComboboxSelected>>", func)
-
 
 def get_details(listbox, path):
     """
@@ -65,6 +62,11 @@ def get_details(listbox, path):
             return row.Article, row.ArticleID, row.Unit, row.Quantity
     return None
 
+# def callback(event):
+#     selected = event.widget.curselection()
+#     if selected:
+#         art_index = selected[0]
+#         art_data = event.widget.get(art_index)
 
 def list_box(frame:Frame, x_cor:int, y_cor:int, l_height:int, l_width:int):
     """

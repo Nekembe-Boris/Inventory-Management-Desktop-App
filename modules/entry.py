@@ -4,7 +4,7 @@ from tkinter import Frame, END
 from tkinter import messagebox
 import datetime
 import pandas
-from modules.functions import clear, forget, get_values, bind_box, get_details, list_box, listboxin, update, update_input, RecentTransactions, DataInput
+from modules.functions import clear, forget, get_values, bind_box, list_box, listboxin, update, update_input, RecentTransactions, DataInput
 from modules.exit import Exit
 
 
@@ -46,8 +46,8 @@ class Input(DataInput):
 
         self.text_label.place(x=150, y=465)
 
-        self.select_btn.configure(width=80, command=self.selected)
-        self.select_btn.place(x=10, y=375)
+        # self.select_btn.configure(width=80, command=self.selected)
+        # self.select_btn.place(x=10, y=375)
 
         self.article_entry_label.place(x=10, y=550)
 
@@ -74,6 +74,7 @@ class Input(DataInput):
         listboxin(self.article_listbox, self.id_listbox, path=self.file_path)
 
         bind_box(self.article_listbox, self.id_listbox, func=self.mousewheel)
+        self.article_listbox.bind("<<ListboxSelect>>", self.callback)
 
 
     def mousewheel(self, event):
@@ -82,28 +83,27 @@ class Input(DataInput):
         self.id_listbox.yview_scroll(-2 * int(event.delta / 120), "units")
 
 
-    def selected(self):
+    def callback(self, event):
         """
-        Uses the get_details function to auto insert the article name, ID, unit and
-        display the current quantity into their respective entry boxes
+        Auto insert the article name, ID, unit and display the current quantity into their respective entry boxes
         """
         clear(self.article_entry_entry, self.id_entry, self.unit_entry, self.qty_entry)
-        try:
-            art_name, art_id, art_unit, art_qty = get_details(self.article_listbox, path=self.file_path)
-        except TypeError:
-            messagebox.showinfo(
-            title="Error",
-            message="No ARTICLE was selected\n--\nOnly select from the ARTICLE list"
-            )
-        else:
+        selected = event.widget.curselection()
+        if selected:
+            art_index = selected[0]
+            art_data = event.widget.get(art_index)
+            stock_data = pandas.read_csv(f"{self.file_path}/data/Stock_level.csv")
 
-            self.current_label.place(x=10, y=920)
-            self.current_qlabel.place(x=80, y=920)
+            for (_ , row) in stock_data.iterrows():
+                if row.Article[:-5] == art_data:
+                    self.article_entry_entry.insert(END, row.Article[:-5])
+                    self.id_entry.insert(END, row.ArticleID)
+                    self.unit_entry.insert(END, row.Unit)
 
-            self.article_entry_entry.insert(END, art_name[:-5])
-            self.id_entry.insert(END, art_id)
-            self.unit_entry.insert(END, art_unit)
-            self.current_qlabel.config(text=art_qty)
+                    self.current_label.place(x=10, y=920)
+                    self.current_qlabel.place(x=80, y=920)
+                    self.current_qlabel.config(text=row.Quantity)       
+
 
     def cancel_tran(self):
         """Clears all entries for the entry tab and also hides Current quantity Labels"""

@@ -161,7 +161,6 @@ class Project:
             self.project_year.set("Year")
             self.project_box.set("Select Project")
 
-            forget(self.project_open_btn, self.new_yr_btn, self.project_year)
 
     def new_year(self):
         """

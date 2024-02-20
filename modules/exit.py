@@ -3,7 +3,7 @@
 from tkinter import END, Frame, messagebox
 import datetime
 import pandas
-from modules.functions import clear, get_values, bind_box, get_details, list_box, update, update_input, RecentTransactions, DataInput
+from modules.functions import clear, get_values, bind_box, list_box, update, update_input, RecentTransactions, DataInput
 
 
 class RecentExits(RecentTransactions):
@@ -42,8 +42,6 @@ class Exit(DataInput):
         self.text_label.config(text="[Select Articles above]")
         self.text_label.place(x=150, y=300)
 
-        self.select_btn.configure(width=80, command=self.selected)
-        self.select_btn.place(x=10, y=247)
 
         self.article_entry_label.place(x=200, y=380)
 
@@ -78,6 +76,7 @@ class Exit(DataInput):
         self.validate_btn.place(x=340, y=700)
 
         bind_box(self.article_listbox, self.id_listbox, func=self.mousewheel)
+        self.article_listbox.bind("<<ListboxSelect>>", self.callback)
 
 
     def mousewheel(self, event):
@@ -86,26 +85,23 @@ class Exit(DataInput):
         self.article_listbox.yview_scroll(-2 * int(event.delta / 120), "units")
         self.id_listbox.yview_scroll(-2 * int(event.delta / 120), "units")
 
-
-    def selected(self):
+    def callback(self, event):
         """
-        Uses the get_details function to auto insert the article name, ID, unit and display the current quantity
+        Auto insert the article name, ID, unit and display the current quantity into their respective entry boxes
         """
-        clear(self.article_entry_entry, self.id_entry, self.unit_entry, self.qty_entry, self.current_qty_entry)
+        clear(self.article_entry_entry, self.id_entry, self.unit_entry, self.qty_entry)
+        selected = event.widget.curselection()
+        if selected:
+            art_index = selected[0]
+            art_data = event.widget.get(art_index)
+            stock_data = pandas.read_csv(f"{self.file_path}/data/Stock_level.csv")
 
-        try:
-            art_name, art_id, art_unit, art_qty = get_details(self.article_listbox, path=self.file_path)
-        except TypeError:
-            messagebox.showinfo(
-            title="Error",
-            message="No ARTICLE was selected\n--\nOnly select from the ARTICLE list"
-            )
-        else:
-
-            self.article_entry_entry.insert(END, art_name[:-5])
-            self.id_entry.insert(END, art_id)
-            self.unit_entry.insert(END, art_unit)
-            self.current_qty_entry.insert(END, art_qty)
+            for (_ , row) in stock_data.iterrows():
+                if row.Article[:-5] == art_data:
+                    self.article_entry_entry.insert(END, row.Article[:-5])
+                    self.id_entry.insert(END, row.ArticleID)
+                    self.unit_entry.insert(END, row.Unit)
+                    self.current_qty_entry.insert(END, row.Quantity)
 
 
     def cancel_tran(self):
