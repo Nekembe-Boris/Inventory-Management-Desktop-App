@@ -41,6 +41,9 @@ def bind_box(*args, func):
     for n in args:
         n.bind("<MouseWheel>", func)
 
+def combo_select(combob, func):
+    combob.bind("<<ComboboxSelected>>", func)
+
 
 def get_details(listbox, path):
     """

@@ -31,11 +31,6 @@ class App():
         else:
             os.mkdir("./projects")
 
-        # try:
-        #     os.path.isdir("./projects")
-        # except FileNotFoundError:
-        #     os.mkdir("./projects")
-
         self.directory_path = "./projects"
 
 

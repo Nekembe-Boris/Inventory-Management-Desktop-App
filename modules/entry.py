@@ -71,9 +71,9 @@ class Input(DataInput):
         self.validate_btn.configure(text="Confirm Entry", hover_color="green", command=self.validate_entry)
         self.validate_btn.place(x=350, y=640)
 
-        listboxin(self.article_listbox,  self.id_listbox, path=self.file_path)
+        listboxin(self.article_listbox, self.id_listbox, path=self.file_path)
 
-        bind_box(self.article_listbox,  self.id_listbox, func=self.mousewheel)
+        bind_box(self.article_listbox, self.id_listbox, func=self.mousewheel)
 
 
     def mousewheel(self, event):
