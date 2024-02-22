@@ -1,4 +1,4 @@
-"""This module generates the GUI Interface of this application"""
+"""Brings everything together"""
 import os
 from tkinter import ttk
 import customtkinter

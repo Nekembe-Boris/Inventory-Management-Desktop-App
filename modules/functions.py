@@ -1,5 +1,5 @@
 """
-This module contains functions and Classes that are repeatedly used by all the other modules
+Contains functions and Classes that are repeatedly used by all the other modules
 """
 
 from tkinter import Frame, Listbox, Label, END

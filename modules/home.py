@@ -1,6 +1,6 @@
 """
 - This module creates a new project or opens an existing project 
-- It also automatically changes the working directory to the created or selected project
+- It also automatically changes the working directory based on the created or selected project
 """
 
 from tkinter import Frame, messagebox, StringVar, Label
@@ -55,8 +55,6 @@ class Project:
         self.create_project_btn = customtkinter.CTkButton(master=self.frame, text="Create New", width=200, height=80, command=self.new_project)
         self.create_project_btn.place(x=240, y=300)
 
-        ToolTip(self.create_project_btn, msg="Create a directory for a new:\n- PROJECT\n- STORE\n- WAREHOUSE")
-
         self.descrip_cc_label = Label(master=self.frame, text="Open Existing Project", font=("Century Gothic", 20, "bold"), background="#212121", foreground="white")
         self.descrip_cc_label.place(x=880, y=250)
 
@@ -64,8 +62,6 @@ class Project:
         self.project_box.set("Select Project")
         self.project_box.place(x=700, y=300)
 
-        # self.pro_files_btn = customtkinter.CTkButton(master=self.frame, text="View Folders", width=150, command=self.select_project)
-        # self.pro_files_btn.place(x=900, y=340)
 
         self.project_open_btn = customtkinter.CTkButton(master=self.frame, text="Open", width=150, command=self.open)
         self.project_open_btn.place(x=900, y=410)
@@ -75,7 +71,7 @@ class Project:
         self.project_year.place(x=700, y=380)
         
 
-        self.new_yr_btn = customtkinter.CTkButton(master=self.frame, text="New Year", width=100, command=self.new_year)
+        self.new_yr_btn = customtkinter.CTkButton(master=self.frame, text="New Year", width=150, command=self.new_year)
         self.new_yr_btn.place(x=900, y=440)
 
         ToolTip(self.create_project_btn, msg="Create a directory for a new:\n- PROJECT\n- STORE\n- WAREHOUSE")

@@ -1,4 +1,4 @@
-"""This module is responsible for all the functionalities of the EXIT TAB"""
+"""Module responsible for all the functionalities of the EXIT TAB"""
 
 from tkinter import END, Frame, messagebox
 import datetime

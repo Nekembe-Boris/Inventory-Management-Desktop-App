@@ -85,7 +85,9 @@ class Input(DataInput):
 
     def callback(self, event):
         """
-        Auto insert the article name, ID, unit and display the current quantity into their respective entry boxes
+        Based on the article selected:
+        - It auto insert the article name, ID, unit into their respective entry boxes
+        - Displays the current quantity at the bottom of the tab
         """
         clear(self.article_entry_entry, self.id_entry, self.unit_entry, self.qty_entry)
         selected = event.widget.curselection()

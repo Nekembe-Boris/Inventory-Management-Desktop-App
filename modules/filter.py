@@ -1,4 +1,5 @@
 """Module tasked with Filtering on the ADVANCED TAB"""
+
 from tkinter import Label, StringVar, Frame
 from tkinter import messagebox
 import customtkinter
