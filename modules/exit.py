@@ -92,8 +92,8 @@ class Exit(DataInput):
         clear(self.article_entry_entry, self.id_entry, self.unit_entry, self.qty_entry)
         selected = event.widget.curselection()
         if selected:
-            art_index = selected[0]
-            art_data = event.widget.get(art_index)
+            # art_index = selected[0]
+            art_data = event.widget.get(selected[0])
             stock_data = pandas.read_csv(f"{self.file_path}/data/Stock_level.csv")
 
             for (_ , row) in stock_data.iterrows():
@@ -111,14 +111,13 @@ class Exit(DataInput):
 
     def validate_exit(self):
         """
-        - Gets all Article details and ensures that the name, domain and unit of the outbound 
+        - Gets all Article details and ensures that the name, ID and unit of the outbound 
         article is an exact match to any article in stock for the exit to be accepted
         - Appends the transaction data to the Exit, General ledger and Stock level csv 
         files if all conditions have been fulfilled and the file exits (for the Exit file) otherwise, it creates the file and appends the data
         - For the Stock file, it deletes any data relating to the specific article 
         and inserts a new data with an updated quantity (subtracts exit quantity from quantity in stock)
         - For the General Ledger, it registers the quantity with a minus(-) sign to indicate an exit.
-        - Uses the Inventory_check function to update the quantity displayed in the Stock Check section
         """
 
         art_name, art_id, art_unit, cur_qty, exit_qty, *_ = get_values( self.article_entry_entry, self.id_entry, self.unit_entry, self.current_qty_entry, self.exit_qty_entry)

@@ -92,8 +92,8 @@ class Input(DataInput):
         clear(self.article_entry_entry, self.id_entry, self.unit_entry, self.qty_entry)
         selected = event.widget.curselection()
         if selected:
-            art_index = selected[0]
-            art_data = event.widget.get(art_index)
+            # art_index = selected[0]
+            art_data = event.widget.get(selected[0])
             stock_data = pandas.read_csv(f"{self.file_path}/data/Stock_level.csv")
 
             for (_ , row) in stock_data.iterrows():
@@ -117,7 +117,7 @@ class Input(DataInput):
     def validate_entry(self):
         """
         - Gets all Article details and the date
-        - Ensure a descriptive Article name/ID 
+        - Ensure a descriptive Article name and ID 
         - Ensures that only integers are entered as quantity
         - Appends the transaction data to the Entries, General ledger and 
         Stock level csv files if all conditions have been fulfilled 
