@@ -89,7 +89,7 @@ class Exit(DataInput):
         """
         Auto insert the article name, ID, unit and display the current quantity into their respective entry boxes
         """
-        clear(self.article_entry_entry, self.id_entry, self.unit_entry, self.qty_entry)
+        clear(self.article_entry_entry, self.id_entry, self.unit_entry, self.qty_entry, self.current_qty_entry)
         selected = event.widget.curselection()
         if selected:
             # art_index = selected[0]
@@ -127,7 +127,7 @@ class Exit(DataInput):
         stock_name = f'{art_name}[{art_id[:3]}]'
 
         try:
-            stock_data = pandas.read_csv("./data/Stock_level.csv")
+            stock_data = pandas.read_csv(f"{self.file_path}/data/Stock_level.csv")
             qty_left = int(cur_qty) - int(exit_qty)
         except (FileNotFoundError, ValueError):
             messagebox.showinfo(
@@ -199,21 +199,21 @@ class Exit(DataInput):
                     new_stk_df = pandas.DataFrame(new_stk_data)
 
                     try:
-                        pandas.read_csv("./data/Exit.csv")
+                        pandas.read_csv(f"{self.file_path}/data/Exit.csv")
                     except FileNotFoundError:
-                        exit_df.to_csv("./data/Exit.csv", mode='a', index=False)
+                        exit_df.to_csv(f"{self.file_path}/data/Exit.csv", mode='a', index=False)
                     else:
-                        exit_df.to_csv("./data/Exit.csv", mode='a', index=False, header=False)
+                        exit_df.to_csv(f"{self.file_path}/data/Exit.csv", mode='a', index=False, header=False)
 
                     finally:
-                        gl_df.to_csv("./data/General_ledger.csv", mode='a', index=False, header=False)
+                        gl_df.to_csv(f"{self.file_path}/data/General_ledger.csv", mode='a', index=False, header=False)
 
                         #updating the article qty in Stock csv file
                         for (i, row) in stk_df.iterrows():
                             if row.Article == stock_name:
                                 stk_df = stk_df.drop(stk_df.index[i], axis=0)
-                                stk_df.to_csv("./data/Stock_level.csv", index=False)
-                                new_stk_df.to_csv("./data/Stock_level.csv", mode='a', index=False, header=False)
+                                stk_df.to_csv(f"{self.file_path}/data/Stock_level.csv", index=False)
+                                new_stk_df.to_csv(f"{self.file_path}/data/Stock_level.csv", mode='a', index=False, header=False)
 
                     clear(self.article_entry_entry, self.id_entry, self.unit_entry, self.current_qty_entry, self.exit_qty_entry)
 

@@ -46,9 +46,6 @@ class Input(DataInput):
 
         self.text_label.place(x=150, y=465)
 
-        # self.select_btn.configure(width=80, command=self.selected)
-        # self.select_btn.place(x=10, y=375)
-
         self.article_entry_label.place(x=10, y=550)
 
         self.article_entry_entry.place(x=10, y=465)
@@ -130,98 +127,108 @@ class Input(DataInput):
 
         current_time = datetime.datetime.now()
         date = current_time.strftime("%d-%b-%Y")
+        fiscal_year = int(self.file_path[-4:])
+        old_art_list = []
 
-        art_name, art_id, art_unit, art_qty, *_ = get_values(self.article_entry_entry, self.id_entry, self.unit_entry, self.qty_entry)
-        stock_name = f"{art_name.upper()}[{art_id[:3].title()}]"
-
-        # line 136 - 146 checks the validity of inputs
-        if len(art_name) < 7 or len(art_id) < 4:
+        if fiscal_year < int(current_time.year):
             messagebox.showinfo(
-                title="Article Error",
-                message="Please enter a descriptive and simple Article name/ID that will distinguish it from similar materials\nAlso ensure the ARTICLEID is not empty"
-            )
-        elif len(art_unit) < 1 or not art_unit.isalpha():
-            messagebox.showinfo(
-                title="Modify Unit box",
-                message="Please enter a more descriptive Units to distinguish it from similar materials\nOnly use alphabetic characters"
-            )
-        elif not art_qty.isdecimal() or int(art_qty) < 1 :
-            messagebox.showinfo(
-                title="Invalid quantity",
-                message="Quantities must be numerical and cannot be less than 1"
+                title="Not Allowed!!",
+                message= "Transactions can't be registered after the year is has ended\nCreate a new directory (for the year) for this project and start recording"
             )
         else:
+            art_name, art_id, art_unit, art_qty, *_ = get_values(self.article_entry_entry, self.id_entry, self.unit_entry, self.qty_entry)
+            stock_name = f"{art_name.upper()}[{art_id[:3].title()}]"
 
-            tran_validate = messagebox.askokcancel(
-                title="Confirm Entry",
-                message=f"Article: {art_name.upper()}\nArticleID: {art_id.title()}\nUnit: {art_unit}\nQuantity: {art_qty}"
+            # line 136 - 146 checks the validity of inputs
+            if len(art_name) < 7 or len(art_id) < 4:
+                messagebox.showinfo(
+                    title="Article Error",
+                    message="Please enter a descriptive and simple Article name/ID that will distinguish it from similar materials\nAlso ensure the ARTICLEID is not empty"
                 )
+            elif len(art_unit) < 1 or not art_unit.isalpha():
+                messagebox.showinfo(
+                    title="Modify Unit box",
+                    message="Please enter a more descriptive Units\nOnly use alphabetic characters"
+                )
+            elif not art_qty.isdecimal() or int(art_qty) < 1 :
+                messagebox.showinfo(
+                    title="Invalid quantity",
+                    message="Quantities must be numerical and cannot be less than 1"
+                )
+            else:
 
-            if tran_validate is True:
+                tran_validate = messagebox.askokcancel(
+                    title="Confirm Entry",
+                    message=f"Article: {art_name.upper()}\nArticleID: {art_id.title()}\nUnit: {art_unit}\nQuantity: {art_qty}"
+                    )
 
-                # creating a dataframe for registration in Entries and General ledger
-                new_data = {
-                    "Date" : [date],
-                    "Time" : [f"{current_time.strftime('%H:%M:%S')}"],
-                    "ArticleID": [art_id.title()],
-                    "Article" : [art_name.upper()],
-                    "Unit" : [art_unit.lower()],
-                    "Quantity" : [art_qty]
-                }
-                d_f = pandas.DataFrame(new_data)
+                if tran_validate:
 
-                # dataframe for Stockfile
-                stk_data = {
-                    "ArticleID": [art_id.title()],
-                    "Article" : [stock_name],
-                    "Unit" : [art_unit.lower()],
-                    "Quantity" : [art_qty]
-                }
-                new_stk_df = pandas.DataFrame(stk_data)
+                    # creating a dataframe for registration in Entries and General ledger
+                    new_data = {
+                        "Date" : [date],
+                        "Time" : [f"{current_time.strftime('%H:%M:%S')}"],
+                        "ArticleID": [art_id.title()],
+                        "Article" : [art_name.upper()],
+                        "Unit" : [art_unit.lower()],
+                        "Quantity" : [art_qty]
+                    }
+                    d_f = pandas.DataFrame(new_data)
+
+                    # dataframe for Stockfile
+                    stk_data = {
+                        "ArticleID": [art_id.title()],
+                        "Article" : [stock_name],
+                        "Unit" : [art_unit.lower()],
+                        "Quantity" : [art_qty]
+                    }
+                    new_stk_df = pandas.DataFrame(stk_data)
 
 
-                try:
-                    pandas.read_csv(f"{self.file_path}/data/Entries.csv")
-                    pandas.read_csv(f"{self.file_path}/data/General_ledger.csv")
-                    stock_data = pandas.read_csv(f"{self.file_path}/data/Stock_level.csv")
-                except FileNotFoundError:  # creates file with header (key) if file does not exist
-                    d_f.to_csv(f"{self.file_path}/data/Entries.csv", mode='a', index=False)
-                    d_f.to_csv(f"{self.file_path}/data/General_ledger.csv", mode='a', index=False)
-                    new_stk_df.to_csv(f"{self.file_path}/data/Stock_level.csv", mode='a', index=False)
-                    old_art_list = []
-                else: # only appends relevent new data to the existing file
-                    stk_df = pandas.DataFrame(stock_data)
-                    d_f.to_csv(f"{self.file_path}/data/Entries.csv", mode='a', index=False, header=False)
-                    d_f.to_csv(f"{self.file_path}/data/General_ledger.csv", mode='a', index=False, header=False)
+                    try:
+                        pandas.read_csv(f"{self.file_path}/data/Entries.csv")
+                        pandas.read_csv(f"{self.file_path}/data/Stock_level.csv")
+                    except (FileNotFoundError, FileNotFoundError) as error:
+                        match error:
+                            case FileNotFoundError():
+                                d_f.to_csv(f"{self.file_path}/data/Entries.csv", mode='a', index=False)
+                                d_f.to_csv(f"{self.file_path}/data/General_ledger.csv", mode='a', index=False)
+                            case FileNotFoundError():
+                                new_stk_df.to_csv(f"{self.file_path}/data/Stock_level.csv", mode='a', index=False)
+                    else: # only appends relevent new data to the existing file
+                        stock_data = pandas.read_csv(f"{self.file_path}/data/Stock_level.csv")
+                        stk_df = pandas.DataFrame(stock_data)
+                        d_f.to_csv(f"{self.file_path}/data/Entries.csv", mode='a', index=False, header=False)
+                        d_f.to_csv(f"{self.file_path}/data/General_ledger.csv", mode='a', index=False, header=False)
 
-                    old_art_list = stock_data.Article.to_list()
-                    stock_lenght = len(stock_data.Article.to_list())
+                        old_art_list.extend(stock_data.Article.to_list())
+                        stock_lenght = len(stock_data.Article.to_list())
 
-                    for (i, row) in stk_df.iterrows():
+                        for (i, row) in stk_df.iterrows():
 
-                        if row.Article == stock_name and row.ArticleID == art_id:  # checks if Article and ArticleID are the same
+                            if row.Article == stock_name and row.ArticleID == art_id:  # checks if Article and ArticleID are the same
 
-                            stk_df = stk_df.drop(stk_df.index[i], axis=0) # deletes the row with the old article info if it is match
-                            stk_df.to_csv(f"{self.file_path}/data/Stock_level.csv", index=False) # saves new file
+                                stk_df = stk_df.drop(stk_df.index[i], axis=0) # deletes the row with the old article info if it is match
+                                stk_df.to_csv(f"{self.file_path}/data/Stock_level.csv", index=False) # saves new file
 
-                            #creates a dataframe that with new quantity for the article and appends to stockfile
-                            updated_data = {
-                                "ArticleID": [art_id.title()],
-                                "Article" : [stock_name],
-                                "Unit" : [art_unit.lower()],
-                                "Quantity" : [int(art_qty) + row.Quantity]
-                            }
-                            updated_stk_df = pandas.DataFrame(updated_data)
-                            updated_stk_df.to_csv(f"{self.file_path}/data/Stock_level.csv", mode='a', index=False, header=False)
+                                #creates a dataframe that with new quantity for the article and appends to stockfile
+                                updated_data = {
+                                    "ArticleID": [art_id.title()],
+                                    "Article" : [stock_name],
+                                    "Unit" : [art_unit.lower()],
+                                    "Quantity" : [int(art_qty) + row.Quantity]
+                                }
+                                updated_stk_df = pandas.DataFrame(updated_data)
+                                updated_stk_df.to_csv(f"{self.file_path}/data/Stock_level.csv", mode='a', index=False, header=False)
 
-                            #an indicator for a succesfull procedure
-                            stock_lenght -= 1
+                                #an indicator for a succesfull procedure
+                                stock_lenght -= 1
 
-                    #This line of code checks to see if a new record was created to avoid duplicating entries in case the article is being recorded for the 1st time
-                    if stock_lenght == len(stock_data.Article.to_list()):
-                        new_stk_df.to_csv(f"{self.file_path}/data/Stock_level.csv", mode='a', index=False, header=False)
+                        #This line of code checks to see if a new record was created to avoid duplicating entries in case the article is being recorded for the 1st time
+                        if stock_lenght == len(stock_data.Article.to_list()):
+                            new_stk_df.to_csv(f"{self.file_path}/data/Stock_level.csv", mode='a', index=False, header=False)
 
-                clear(self.article_entry_entry, self.id_entry, self.unit_entry, self.qty_entry)
-                update(self.update.article_listbox, self.update.ID_listbox, self.update.date_listbox, self.update.quatity_listbox, file="Entries", path=self.file_path)
-                update_input(self.article_listbox, self.id_listbox, self.exit_updates.article_listbox, self.exit_updates.id_listbox, name=stock_name, old_data=old_art_list, path=self.file_path)
-                forget(self.current_label, self.current_qlabel)
+                    clear(self.article_entry_entry, self.id_entry, self.unit_entry, self.qty_entry)
+                    update(self.update.article_listbox, self.update.ID_listbox, self.update.date_listbox, self.update.quatity_listbox, file="Entries", path=self.file_path)
+                    update_input(self.article_listbox, self.id_listbox, self.exit_updates.article_listbox, self.exit_updates.id_listbox, name=stock_name, old_data=old_art_list, path=self.file_path)
+                    forget(self.current_label, self.current_qlabel)

@@ -141,7 +141,6 @@ class Project:
 
             self.current_project.title(f"XERXES - {selected_project} [{selected_year}]")
 
-            # updating the entry tab
             listboxin(self.entry_tab.article_listbox,  self.entry_tab.id_listbox, path=self.entry_tab.file_path)
 
             insert_info(self.recent_entries.article_listbox, self.recent_entries.ID_listbox, self.recent_entries.date_listbox, self.recent_entries.quatity_listbox, file=self.recent_entries.file_name, path=self.entry_tab.file_path)
@@ -192,7 +191,6 @@ class Project:
             self.current_project.title(f"XERXES - {selected_project} [{current_yr}]")
 
             forget(self.project_open_btn, self.new_yr_btn)
-            # self.pro_files_btn.place(x=900, y=340)
 
             listboxin(self.exit_tab.article_listbox, self.exit_tab.id_listbox, path=self.exit_tab.file_path)
             listboxin(self.entry_tab.article_listbox,  self.entry_tab.id_listbox, path=self.entry_tab.file_path)

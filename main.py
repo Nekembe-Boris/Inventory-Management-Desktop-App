@@ -33,7 +33,6 @@ class App():
 
         self.directory_path = "./projects"
 
-
         # EXIT TAB
         # main frame for the EXIT Tab
         self.exit_frame = customtkinter.CTkFrame(
@@ -73,7 +72,12 @@ class App():
         #frame for the input section of the Entry Tab
         self.input_frame = customtkinter.CTkFrame(master=self.entry_frame, height=820, width=550)
         self.input_frame.grid(column=0, row=0)
-        self.entry_sec = Input(frame=self.input_frame, updates=self.info_sec, exit_up=self.exit_sec, path=self.directory_path)
+        self.entry_sec = Input(
+            frame = self.input_frame,
+            updates = self.info_sec,
+            exit_up = self.exit_sec,
+            path = self.directory_path,
+            )
 
 
         #ADVANCED TAB
@@ -110,9 +114,9 @@ class App():
             recent_entries = self.info_sec,
             exit_tab = self.exit_sec,
             recent_exit = self.exit_info_sec,
-            filter_sec=self.filter_sec,
-            stock=self.stock_check,
-            title= self.root
+            filter_sec = self.filter_sec,
+            stock = self.stock_check,
+            title = self.root
             )
 
 

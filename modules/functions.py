@@ -62,11 +62,6 @@ def get_details(listbox, path):
             return row.Article, row.ArticleID, row.Unit, row.Quantity
     return None
 
-# def callback(event):
-#     selected = event.widget.curselection()
-#     if selected:
-#         art_index = selected[0]
-#         art_data = event.widget.get(art_index)
 
 def list_box(frame:Frame, x_cor:int, y_cor:int, l_height:int, l_width:int):
     """
@@ -107,29 +102,27 @@ def listboxin(*box, path):
     :param path - file path to load data
 
     - This function is responsible for inserting data into the Article and Article ID listbox
-    - Runs only once; when a project is selected
     """
-
+    #clears previous items in the listbox
+    for bo_x in box:
+        clear(bo_x)
     try:
         stock_data = pandas.read_csv(f"{path}/data/Stock_level.csv")
     except FileNotFoundError:
         print("No data")
     else:
 
-        article_list = stock_data.Article.to_list()
-        article_id_list = stock_data.ArticleID.to_list()
-
-        rev_index = len(article_list)
+        rev_index = len(stock_data.ArticleID.to_list())
 
         # Line 119 handles a situation where there is just 01 listbox
         if len(box)<2:
-            for item in article_list:
+            for item in stock_data.Article.to_list():
                 box[0].insert(0, item)
         else:
-            for item in article_list:
+            for item in stock_data.Article.to_list():
                 box[0].insert(0, item[:-5])
 
-            for item in article_id_list:
+            for item in stock_data.ArticleID.to_list():
                 box[1].insert(0, item)
 
         style_bg(box, length=rev_index)
@@ -144,6 +137,9 @@ def insert_info(*box, path, file):
     - This function is responsible for inserting data into all Recent Transaction listboxes
     - Runs only once; when a project is selected
     """
+    #clears previous items in the listbox
+    for bo_x in box:
+        clear(bo_x)
     try:
 
         data = pandas.read_csv(f"{path}/data/{file}.csv")
@@ -151,23 +147,18 @@ def insert_info(*box, path, file):
         print("No data")
     else:
 
-        entries_article_list = data.Article.to_list()
-        entries_article_id_list = data.ArticleID.to_list()
-        entries_date_list = data.Date.to_list()
-        entries_qty_list = data.Quantity.to_list()
+        rev_index = len(data.Date.to_list())
 
-        rev_index = len(entries_date_list)
-
-        for item in entries_article_list:
+        for item in data.Article.to_list():
             box[0].insert(0, item)
 
-        for item in entries_article_id_list:
+        for item in data.ArticleID.to_list():
             box[1].insert(0, item)
 
-        for item in entries_date_list:
+        for item in data.Date.to_list():
             box[2].insert(0, item)
 
-        for item in entries_qty_list:
+        for item in data.Quantity.to_list():
             box[3].insert(0, item)
 
         style_bg(box, length=rev_index)
@@ -189,18 +180,12 @@ def update(*box, file, path):
         print("No data")
     else:
 
-        entries_article_list = data.Article.to_list()
-        entries_article_id_list = data.ArticleID.to_list()
-        entries_date_list = data.Date.to_list()
-        entries_qty_list = data.Quantity.to_list()
-        rec_rev_index = len(entries_article_list)
+        box[0].insert(0, data.Article.to_list()[-1])
+        box[1].insert(0, data.ArticleID.to_list()[-1])
+        box[2].insert(0,  data.Date.to_list()[-1])
+        box[3].insert(0,  data.Quantity.to_list()[-1])
 
-        box[0].insert(0, entries_article_list[-1])
-        box[1].insert(0, entries_article_id_list[-1])
-        box[2].insert(0,  entries_date_list[-1])
-        box[3].insert(0,  entries_qty_list[-1])
-
-        style_bg(box, length=rec_rev_index)
+        style_bg(box, length=len(data.Article.to_list()))
 
 
 def update_input(*box, name:str, old_data:list, path):
@@ -220,16 +205,14 @@ def update_input(*box, name:str, old_data:list, path):
         print("No data")
     else:
 
-        article_list = stock_data.Article.to_list()
-        article_id_list = stock_data.ArticleID.to_list()
 
         if name not in old_data:
-            box[0].insert(0, article_list[-1][:-5])
-            box[1].insert(0, article_id_list[-1])
-            box[2].insert(0, article_list[-1][:-5])
-            box[3].insert(0, article_id_list[-1])
+            box[0].insert(0, stock_data.Article.to_list()[-1][:-5])
+            box[1].insert(0, stock_data.ArticleID.to_list()[-1])
+            box[2].insert(0, stock_data.Article.to_list()[-1][:-5])
+            box[3].insert(0, stock_data.ArticleID.to_list()[-1])
 
-        style_bg(box, length=len(article_list))
+        style_bg(box, length=len(stock_data.Article.to_list()))
 
 
 class RecentTransactions():

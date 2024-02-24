@@ -4,7 +4,7 @@ from tkinter import Label, StringVar, Frame
 from tkinter import messagebox
 import customtkinter
 import pandas
-from modules.functions import  list_box, bind_box, clear, style_bg, forget
+from modules.functions import  list_box, bind_box, clear, forget, insert_info
 
 
 FG = "white"
@@ -137,30 +137,7 @@ class Filter():
             else:
                 filtered_df.to_csv(f"{self.file_path}/data/filtered.csv", index=False)
 
-                filtered_data = pandas.read_csv(f"{self.file_path}/data/filtered.csv")
-                entries_article_list = filtered_data.Article.to_list()
-                entries_article_id_list = filtered_data.ArticleID.to_list()
-                entries_date_list = filtered_data.Date.to_list()
-                entries_qty_list = filtered_data.Quantity.to_list()
-
-                rev_index = len(entries_date_list)
-
-                for item in entries_article_list:
-                    self.fil_art_listbox.insert(0, item)
-
-                for item in entries_article_id_list:
-                    self.fil_id_listbox.insert(0, item)
-
-                for item in entries_date_list:
-                    self.fil_date_listbox.insert(0, item)
-
-                for item in entries_qty_list:
-                    self.fil_quatity_listbox.insert(0, item)
-
-
-                box_list = (self.fil_art_listbox, self.fil_id_listbox, self.fil_date_listbox, self.fil_quatity_listbox)
-
-                style_bg(box=box_list, length=rev_index)
+                insert_info(self.fil_art_listbox, self.fil_id_listbox, self.fil_date_listbox, self.fil_quatity_listbox, path=self.file_path, file="filtered")
 
                 forget(self.fil_details_box, self.filter_btn, self.cancel_filter_btn)
                 self.record_type.set("Select Record")

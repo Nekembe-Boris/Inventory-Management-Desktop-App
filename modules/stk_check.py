@@ -71,8 +71,6 @@ class StockLook():
         self.gen_excel_btn = customtkinter.CTkButton(master=frame, text="GENERATE EXCEL SHEET",  font=FONT2, hover_color="green", command=self.generate_excel)
         self.gen_excel_btn.place(x=170, y=600)
 
-        # listboxin(self.ch_listbox)
-
 
     def refresh(self):
         """Reloads the listbox to get current stock data"""
@@ -119,7 +117,7 @@ class StockLook():
             )
         else:
             try:
-                data = pandas.read_csv(f"./data/{record_type[radio_get]}.csv")
+                data = pandas.read_csv(f"{self.file_path}/data/{record_type[radio_get]}.csv")
             except FileNotFoundError:
                 messagebox.showinfo(
                     title="Error",
