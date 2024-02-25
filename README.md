@@ -1,8 +1,16 @@
-# Inventory-manager-2.0
+# XERXES - Inventory Management App
 
-This is an improved version of the [Inventory manager project](https://github.com/Nekembe-Boris/Inventory-manager). This GUI inventory management system can be used by any individual to manage stock and it is 'Database-less' and was built solely with Pandas and CSV files (because it is quite easy to manipulate using python). It can also be used in filtering your data and you can also delete an article from inventory.
+This GUI inventory management system can be used by any individual to manage stock and it is 'Database-less' and was built solely with the Python **Tkinter GUI Toolkit**, **CustomTkinter Toolkit**, **Pandas Library** and CSV files. It can also be used in filtering your data based on certain preferences chosen.  
 
-Currently working on a visualisation Tab which can give you some insight into your patterns
+
+
+## Interface
+![app image](https://github.com/Nekembe-Boris/user-content/blob/main/Screenshot%202024-02-25%20135130.png)
+
+1. HOME Tab
+   - Create a new directory for a new Project / Warehouse / Store by clicking the **Create New** button
+   - ![create_project_img]()
+
 
 ## Project Setup
 
