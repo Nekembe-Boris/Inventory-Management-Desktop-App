@@ -35,8 +35,8 @@ This GUI inventory management system can be used by any individual to manage sto
 
 This project requires Python 3.11. To get started, follow the steps below:
 
-1. **Clone the Repository:** Begin by cloning this repository to your local machine using the following command:
-   ```git clone <repository_url>```
+1. **Clone the Repository:** Begin by cloning this repository to your local machine using the following command:  
+   ```git clone https://github.com/Nekembe-Boris/XERXES.git```
 
 3. **Set Up Virtual Environment:**
 On macOS and Linux:
@@ -55,3 +55,5 @@ After activating the virtual environment, install the project dependencies using
 ```
 pip install -r requirements.txt
 ```
+
+4. Run **main.py**
