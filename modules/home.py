@@ -1,5 +1,5 @@
 """
-- This module creates a new project or opens an existing project 
+- This module is tasked with creating a new project or open an existing project
 - It also automatically changes the working directory based on the created or selected project
 """
 
@@ -9,7 +9,7 @@ import shutil
 import datetime
 from tktooltip import ToolTip
 import customtkinter
-from modules.functions import forget, listboxin, insert_info
+from modules.functions import forget, listboxin, insert_info, clear
 from modules.entry import Input, RecentEntries
 from modules.exit import Exit, RecentExits
 from modules.filter import Filter
@@ -191,6 +191,10 @@ class Project:
             self.current_project.title(f"XERXES - {selected_project} [{current_yr}]")
 
             forget(self.project_open_btn, self.new_yr_btn)
+
+            # clearing all entry boxes on ENTRY & EXIT Tabs
+            clear(self.entry_tab.article_entry_entry, self.entry_tab.id_entry, self.entry_tab.unit_entry, self.entry_tab.qty_entry)
+            clear(self.exit_tab.article_entry_entry, self.exit_tab.id_entry, self.exit_tab.unit_entry, self.exit_tab.qty_entry, self.exit_tab.current_qty_entry)
 
             listboxin(self.exit_tab.article_listbox, self.exit_tab.id_listbox, path=self.exit_tab.file_path)
             listboxin(self.entry_tab.article_listbox,  self.entry_tab.id_listbox, path=self.entry_tab.file_path)

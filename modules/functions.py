@@ -1,5 +1,6 @@
 """
-Contains functions and Classes that are repeatedly used by all the other modules
+- This module contains functions and Classes that are repeatedly used by all the other modules.
+- The aim is to avoid repetition
 """
 
 from tkinter import Frame, Listbox, Label, END
@@ -42,25 +43,6 @@ def bind_box(*args, func):
         n.bind("<MouseWheel>", func)
 
 
-def get_details(listbox, path):
-    """
-    :param listbox - Listbox to get Article metadata
-    :param path - file path to load data
-
-    Gets the Article, Article ID, Unit and Quantity of the selected article and returns them.
-    """
-
-    stock_data = pandas.read_csv(f"{path}/data/Stock_level.csv")
-    selected = ""
-
-    for i in listbox.curselection():
-        selected = listbox.get(i)
-
-    for (_ , row) in stock_data.iterrows():
-
-        if row.Article[:-5] == selected:
-            return row.Article, row.ArticleID, row.Unit, row.Quantity
-    return None
 
 
 def list_box(frame:Frame, x_cor:int, y_cor:int, l_height:int, l_width:int):

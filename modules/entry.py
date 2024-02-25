@@ -1,4 +1,8 @@
-"""This module is responsible for all the functionalities of the ENTRY TAB"""
+"""
+This module is responsible for all the functionalities of the ENTRY TAB;
+- Recording the entry of articles whether new or already existing
+- Displays the all recent entries
+"""
 
 from tkinter import Frame, END
 from tkinter import messagebox

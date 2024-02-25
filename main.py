@@ -1,4 +1,3 @@
-"""Brings everything together"""
 import os
 from tkinter import ttk
 import customtkinter

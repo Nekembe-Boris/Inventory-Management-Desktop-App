@@ -1,4 +1,8 @@
-"""Module tasked with Filtering on the ADVANCED TAB"""
+"""
+Module tasked with Filtering on the ADVANCED TAB
+- It will filter the data based on preferences.
+- Filtered data can be transformed to an MS Excel sheet
+"""
 
 import os
 from tkinter import StringVar, Frame
@@ -145,7 +149,7 @@ class Filter(RecentTransactions):
 
     def print_data(self):
         """
-        Prints filtered data
+        Generates Excel sheet of the filtered data
         """
         data = pandas.read_csv(f"{self.file_path}/data/filtered.csv")
         data.to_excel(f"{self.file_path}/reports/Filtered_data.xlsx", index=False)

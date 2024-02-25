@@ -1,4 +1,7 @@
-"""Module responsible for all the functionalities of the EXIT TAB"""
+"""
+Module responsible for all the functionalities of the EXIT TAB;
+- Records the exit of articles and also displays recent exits recorded.
+"""
 
 from tkinter import END, Frame, messagebox
 import datetime

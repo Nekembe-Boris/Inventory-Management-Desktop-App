@@ -1,4 +1,8 @@
-"""Module tasked with the Verify Qty and Reports section of the ADVANCED TAB"""
+"""
+Module tasked with the Verify Qty and Reports section of the ADVANCED TAB
+- Easily verify the quantity of an article
+- Also Generates MS Excel sheets based on the preference of the user
+"""
 
 from tkinter import Frame, Label, IntVar, END
 from tkinter import messagebox
