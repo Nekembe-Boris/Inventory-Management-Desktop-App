@@ -25,6 +25,12 @@ This GUI inventory management system can be used by any individual to manage sto
      ![entry_img](https://github.com/Nekembe-Boris/user-content/blob/main/Screenshot%202024-02-25%20155954.png)
      ![exit_img](https://github.com/Nekembe-Boris/user-content/blob/main/Screenshot%202024-02-25%20160657.png)
 
+3. ADVANCED Tab
+   - Easily verify the quantity of any article by selecting the article
+   - Print any record from the options available
+   - Filter record data based on the available preferences
+     ![advanced_tab](https://github.com/Nekembe-Boris/user-content/blob/main/Screenshot%202024-02-25%20170744.png)
+
 ## Project Setup
 
 This project requires Python 3.11. To get started, follow the steps below:
