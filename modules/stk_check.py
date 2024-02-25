@@ -46,16 +46,12 @@ class StockLook():
 
         self.ch_listbox = list_box(frame=self.frame, x_cor=300, y_cor=100, l_height=20, l_width=50)
 
-        self.select_btn = customtkinter.CTkButton(master=self.frame, text=" Select  ", font=FONT3, command=self.check, width=80)
-        self.select_btn.place(x=150, y=240)
-
         self.refresh_btn = customtkinter.CTkButton(master=self.frame, text=" Refresh", font=FONT3, command=self.refresh, width=80)
         self.refresh_btn.place(x=150, y=280)
 
         self.remove_btn = customtkinter.CTkButton(master=self.frame, text="Remove", font=FONT3, command=self.rem_in_stock, width=80)
         self.remove_btn.place(x=150, y=320)
 
-        ToolTip(self.select_btn, msg="Select Article from Box and click to see details")
         ToolTip(self.refresh_btn, msg="Refresh to Update Inventory")
         ToolTip(self.remove_btn, msg="Remove Selected Article from Inventory")
 
@@ -75,6 +71,8 @@ class StockLook():
         self.gen_excel_btn = customtkinter.CTkButton(master=frame, text="GENERATE EXCEL SHEET",  font=FONT2, hover_color="green", command=self.generate_excel)
         self.gen_excel_btn.place(x=170, y=600)
 
+        self.ch_listbox.bind("<<ListboxSelect>>", self.check)
+
 
     def refresh(self):
         """Reloads the listbox to get current stock data"""
@@ -83,27 +81,30 @@ class StockLook():
         listboxin(self.ch_listbox, path=self.file_path)
 
 
-    def check(self):
+    def check(self, event):
         """
         - Loops through the stock data to update the quantity and inserts the ArticleID and quantity of the selected material in their entries so that the current stock quantity can be known
         """
 
         clear( self.art_id_entry, self.ch_qty_entry)
 
-        for _ in self.ch_listbox.curselection():
-            selected = self.ch_listbox.get(self.ch_listbox.curselection())
+        selected = event.widget.curselection()
+        if selected:
+            art_data = event.widget.get(selected[0])
+            # stock_data = pandas.read_csv(f"{self.file_path}/data/Stock_level.csv")
 
-        try:
-            stock_data = pandas.read_csv(f"{self.file_path}/data/Stock_level.csv")
-        except FileNotFoundError:
-            print("No data")
-        else:
-            for (_, row) in stock_data.iterrows():
+        # for _ in self.ch_listbox.curselection():
+        #     selected = self.ch_listbox.get(self.ch_listbox.curselection())
+            try:
+                stock_data = pandas.read_csv(f"{self.file_path}/data/Stock_level.csv")
+            except FileNotFoundError:
+                print("No data")
+            else:
+                for (_, row) in stock_data.iterrows():
+                    if row.Article == art_data:
 
-                if row.Article == selected:
-
-                    self.art_id_entry.insert(END, row.ArticleID)
-                    self.ch_qty_entry.insert(END, row.Quantity)
+                        self.art_id_entry.insert(END, row.ArticleID)
+                        self.ch_qty_entry.insert(END, row.Quantity)
 
 
     def generate_excel(self):

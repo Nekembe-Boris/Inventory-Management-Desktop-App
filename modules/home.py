@@ -86,14 +86,16 @@ class Project:
         new_proj_name = customtkinter.CTkInputDialog(text="Insert project name:", title="NEW PROJECT")
         project_name = str(new_proj_name.get_input()).upper()
         current_yr = str(self.time.year)
-        # all_projects = os.listdir("./projects")
+        all_projects = os.listdir("./projects")
 
         # checks if chosen project name already exists or the validity of the name
-        if project_name in self.project_list or not project_name or project_name is None:
+        if project_name in all_projects:
             messagebox.showerror(
                 title="Error",
-                message="Project name already exists\nOR\nInvalid Project name"
+                message="Project name already exists"
             )
+        elif project_name == "NONE":
+            pass
         else :
             os.makedirs(f"./projects/{project_name}/{current_yr}/reports")
             os.mkdir(f"./projects/{project_name}/{current_yr}/data")

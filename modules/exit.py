@@ -61,8 +61,7 @@ class Exit(DataInput):
         self.unit_entry.configure(width=300)
         self.unit_entry.place(x=50, y=460)
 
-        self.current_qlabel.config(text="CURRENT QTY", fg="white")
-        self.current_qlabel.place(x=185, y=635)
+        self.current_label.place(x=185, y=635)
 
         self.current_qty_entry.configure(width=300)
         self.current_qty_entry.place(x=50, y=525)

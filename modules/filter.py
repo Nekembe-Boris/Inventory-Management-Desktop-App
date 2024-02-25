@@ -64,7 +64,7 @@ class Filter(RecentTransactions):
 
         self.filter_btn = customtkinter.CTkButton(master=self.frame, text="Filter", width=80, font=FONT3, command=self.filter_data)
 
-        self.print_btn = customtkinter.CTkButton(master=self.frame, text="Print", width=80, font=FONT3, command=self.print_data)
+        self.print_btn = customtkinter.CTkButton(master=self.frame, text="To Excel", width=80, font=FONT3, command=self.print_data)
 
         self.cancel_filter_btn = customtkinter.CTkButton(master=self.frame, text="Cancel", width=80, font=FONT3, hover_color="red", command=self.reset_filter)
 
@@ -138,7 +138,7 @@ class Filter(RecentTransactions):
                 self.record_type.set("Select Record")
                 self.filter_record_param.set("Filter By")
 
-                self.print_btn.place(x=720, y=710)
+                self.print_btn.place(x=700, y=170)
 
                 
     def reset_filter(self):
@@ -154,3 +154,5 @@ class Filter(RecentTransactions):
         data = pandas.read_csv(f"{self.file_path}/data/filtered.csv")
         data.to_excel(f"{self.file_path}/reports/Filtered_data.xlsx", index=False)
         os.system(f'start "excel" "{self.file_path}/reports/Filtered_data.xlsx"')
+
+        forget(self.print_btn)

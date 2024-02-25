@@ -102,10 +102,7 @@ class Input(DataInput):
                     self.article_entry_entry.insert(END, row.Article[:-5])
                     self.id_entry.insert(END, row.ArticleID)
                     self.unit_entry.insert(END, row.Unit)
-
-                    self.current_label.place(x=10, y=920)
-                    self.current_qlabel.place(x=80, y=920)
-                    self.current_qlabel.config(text=row.Quantity)       
+      
 
 
     def cancel_tran(self):
@@ -188,17 +185,16 @@ class Input(DataInput):
                     }
                     new_stk_df = pandas.DataFrame(stk_data)
 
-
+                    try:
+                        pandas.read_csv(f"{self.file_path}/data/Stock_level.csv")
+                    except FileNotFoundError:
+                        new_stk_df.to_csv(f"{self.file_path}/data/Stock_level.csv", mode='a', index=False)
+        
                     try:
                         pandas.read_csv(f"{self.file_path}/data/Entries.csv")
-                        pandas.read_csv(f"{self.file_path}/data/Stock_level.csv")
-                    except (FileNotFoundError, FileNotFoundError) as error:
-                        match error:
-                            case FileNotFoundError():
-                                d_f.to_csv(f"{self.file_path}/data/Entries.csv", mode='a', index=False)
-                                d_f.to_csv(f"{self.file_path}/data/General_ledger.csv", mode='a', index=False)
-                            case FileNotFoundError():
-                                new_stk_df.to_csv(f"{self.file_path}/data/Stock_level.csv", mode='a', index=False)
+                    except FileNotFoundError:
+                        d_f.to_csv(f"{self.file_path}/data/Entries.csv", mode='a', index=False)
+                        d_f.to_csv(f"{self.file_path}/data/General_ledger.csv", mode='a', index=False)
                     else: # only appends relevent new data to the existing file
                         stock_data = pandas.read_csv(f"{self.file_path}/data/Stock_level.csv")
                         stk_df = pandas.DataFrame(stock_data)

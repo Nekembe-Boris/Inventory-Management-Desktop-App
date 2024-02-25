@@ -290,9 +290,8 @@ class DataInput():
 
         self.qty_entry = customtkinter.CTkEntry(master=self.frame, fg_color="white", text_color="black", placeholder_text="Insert quantity", width=250)
 
-        self.current_label = Label(master=self.frame, text="Current Qty: ", font=FONT3, fg="red", bg=BACKGROUND_COLOR)
+        self.current_label = Label(master=self.frame, text="CURRENT QTY ", font=FONT3, fg="white", bg=BACKGROUND_COLOR)
 
-        self.current_qlabel = Label(master=self.frame, text="we", font=FONT3, fg="red", bg=BACKGROUND_COLOR)
 
         self.current_qty_entry = customtkinter.CTkEntry(master=self.frame, text_color="black", fg_color=FG, width=60)
 
