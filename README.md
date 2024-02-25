@@ -33,27 +33,18 @@ This GUI inventory management system can be used by any individual to manage sto
 
 ## Project Setup
 
-This project requires Python 3.11. To get started, follow the steps below:
+This project requiresPython >=3.7. To get started, follow the steps below:
 
 1. **Clone the Repository:** Begin by cloning this repository to your local machine using the following command:  
    ```git clone https://github.com/Nekembe-Boris/XERXES.git```
 
-3. **Set Up Virtual Environment:**
-On macOS and Linux:
+
+2. **Install Requirements:**  
 ```
-python3 -m venv env
-source env/bin/activate
-```
-On windows
-```
-python -m venv env
-.\env\Scripts\activate
+pip3 install -r requirements.txt
 ```
 
-3. **Install Requirements:**
-After activating the virtual environment, install the project dependencies using the following command:
-```
-pip install -r requirements.txt
-```
+3. Run **main.py**
 
-4. Run **main.py**
+### Consideration while running the application
+   - This application should not be opened on a screen larger than 19 inches as it will change the UI. CustomTkinter (a modern and customizable python UI-library based on Tkinter) is yet to be fully able to integrate with Tkinter
