@@ -5,7 +5,6 @@ This GUI inventory management system can be used by any individual to manage sto
 
 
 ## Interface
-![app image](https://github.com/Nekembe-Boris/user-content/blob/main/Screenshot%202024-02-25%20135130.png)
 
 1. HOME Tab
    - Create a new directory for a new Project / Warehouse / Store by clicking the **Create New** button
@@ -18,6 +17,13 @@ This GUI inventory management system can be used by any individual to manage sto
    - For an existing Project, click the **New Year** button record transactions for the current year
    - The **Title Bar** will reflect the name of the opened project
      ![title_img](https://github.com/Nekembe-Boris/user-content/blob/main/Screenshot%202024-02-25%20154225.png)
+
+2. ENTRY & EXIT Tab
+   - For **Entry Tab** select article from **ARTICLE** box if article already exists or Enter new article data in corresponding fields
+   - For **Exit Tab** select article from **ARTICLE** box
+   - See recent Entries / Exits right side of the respective Tab
+     ![entry_img](https://github.com/Nekembe-Boris/user-content/blob/main/Screenshot%202024-02-25%20155954.png)
+     ![exit_img](https://github.com/Nekembe-Boris/user-content/blob/main/Screenshot%202024-02-25%20160657.png)
 
 ## Project Setup
 
