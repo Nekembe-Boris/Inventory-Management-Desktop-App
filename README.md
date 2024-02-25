@@ -9,8 +9,15 @@ This GUI inventory management system can be used by any individual to manage sto
 
 1. HOME Tab
    - Create a new directory for a new Project / Warehouse / Store by clicking the **Create New** button
-   - ![create_project_img]()
+     ![create_project_img](https://github.com/Nekembe-Boris/user-content/blob/main/Screenshot%202024-02-25%20150248.png)
 
+   - Open an already project by selecting from the **Select Project** entry box and also selecting the **Year** to succesfully open this project
+     ![open_project_img](https://github.com/Nekembe-Boris/user-content/blob/main/Screenshot%202024-02-25%20152247.png)
+     ![open_img](https://github.com/Nekembe-Boris/user-content/blob/main/Screenshot%202024-02-25%20152314.png)
+
+   - For an existing Project, click the **New Year** button record transactions for the current year
+   - The **Title Bar** will reflect the name of the opened project
+     ![title_img](https://github.com/Nekembe-Boris/user-content/blob/main/Screenshot%202024-02-25%20154225.png)
 
 ## Project Setup
 
