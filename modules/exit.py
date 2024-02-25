@@ -217,6 +217,6 @@ class Exit(DataInput):
 
                     clear(self.article_entry_entry, self.id_entry, self.unit_entry, self.current_qty_entry, self.exit_qty_entry)
 
-                    update(self.update.article_listbox, self.update.ID_listbox, self.update.date_listbox, self.update.quatity_listbox, file="Exit", path=self.file_path)
+                    update(self.update.article_listbox, self.update.ID_listbox, self.update.date_listbox, self.update.quatity_listbox, self.update.time_listbox, file="Exit", path=self.file_path)
 
                     update_input(self.article_listbox, self.id_listbox, name=stock_name, old_data=old_art_list, path=self.file_path)

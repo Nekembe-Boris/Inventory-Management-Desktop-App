@@ -161,6 +161,9 @@ def insert_info(*box, path, file):
         for item in data.Quantity.to_list():
             box[3].insert(0, item)
 
+        for item in data.Time.to_list():
+            box[4].insert(0, item)
+
         style_bg(box, length=rev_index)
 
 
@@ -184,6 +187,7 @@ def update(*box, file, path):
         box[1].insert(0, data.ArticleID.to_list()[-1])
         box[2].insert(0,  data.Date.to_list()[-1])
         box[3].insert(0,  data.Quantity.to_list()[-1])
+        box[4].insert(0,  data.Time.to_list()[-1])
 
         style_bg(box, length=len(data.Article.to_list()))
 
@@ -229,7 +233,7 @@ class RecentTransactions():
         self.des_label.place(x=380, y=10)
 
         self.article_label= Label(master=self.frame, text="Article", font=FONT3, bg=BACKGROUND_COLOR, fg=FG)
-        self.article_label.place(x=155, y=45)
+        self.article_label.place(x=185, y=45)
 
         self.id_label= Label(master=self.frame, text="Article ID", font=FONT3, bg=BACKGROUND_COLOR, fg=FG)
         self.id_label.place(x=470, y=45)
@@ -240,6 +244,9 @@ class RecentTransactions():
         self.qty_label= Label(master=self.frame, text="QTY", font=FONT3, bg=BACKGROUND_COLOR, fg=FG)
         self.qty_label.place(x=760, y=45)
 
+        self.time_label= Label(master=self.frame, text="Time", font=FONT3, bg=BACKGROUND_COLOR, fg=FG)
+        self.time_label.place(x=820, y=45)
+
         self.article_listbox = list_box(frame=self.frame, x_cor=75, y_cor=70, l_height=40, l_width=50)
 
         self.ID_listbox = list_box(frame=self.frame, x_cor=380, y_cor=70, l_height=40, l_width=40)
@@ -247,6 +254,8 @@ class RecentTransactions():
         self.date_listbox = list_box(frame=self.frame, x_cor=625, y_cor=70, l_height=40, l_width=20)
 
         self.quatity_listbox = list_box(frame=self.frame, x_cor=750, y_cor=70, l_height=40, l_width=10)
+
+        self.time_listbox = list_box(frame=self.frame, x_cor=815, y_cor=70, l_height=40, l_width=15)
 
         bind_box(self.article_listbox, self.ID_listbox, self.date_listbox, self.quatity_listbox, func=self.mousewheel)
         # insert_info(self.article_listbox, self.ID_listbox, self.date_listbox, self.quatity_listbox, file=self.file_name)

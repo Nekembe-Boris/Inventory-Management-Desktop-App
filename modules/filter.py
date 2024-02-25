@@ -1,11 +1,11 @@
 """Module tasked with Filtering on the ADVANCED TAB"""
 
 import os
-from tkinter import Label, StringVar, Frame
+from tkinter import StringVar, Frame
 from tkinter import messagebox
 import customtkinter
 import pandas
-from modules.functions import  list_box, bind_box, clear, forget, insert_info
+from modules.functions import clear, forget, insert_info, RecentTransactions
 
 
 FG = "white"
@@ -16,19 +16,36 @@ records = ["Entries", "Exit", "General_ledger"]
 ad_filter = ["Article", "ArticleID", "Date"]
 
 
-class Filter():
+class Filter(RecentTransactions):
     """
     Filters data and displays filtered data in listboxes
     """
     def __init__(self, frame:Frame, path):
         self.frame = frame
         self.file_path = path
+        self.file_name = "filtered"
+
+        super().__init__(self.frame, file=self.file_name)
+
+        self.des_label.config(text="FILTER RECORDS")
+        self.des_label.place(x=350, y=30)
+
+
+        self.article_label.place(x=240, y=250)
+        self.id_label.place(x=480, y=250)
+        self.date_label.place(x=700, y=250)
+        self.qty_label.place(x=790, y=250)
+        self.time_label.place(x=865, y=250)
+
+        self.article_listbox.place(x=100, y=280)
+        self.ID_listbox.place(x=405, y=280)
+        self.date_listbox.place(x=650, y=280)
+        self.quatity_listbox.place(x=775, y=280)
+        self.time_listbox.place(x=840, y=280)
+
 
         self.rec_var = StringVar()
         self.filter_var = StringVar()
-
-        self.filter_label = Label(master=self.frame, text="FILTER RECORDS", font=FONT1, bg=BACKGROUND_COLOR, fg="red")
-        self.filter_label.place(x=350, y=30)
 
         self.record_type = customtkinter.CTkComboBox(master=self.frame, width=250, variable=self.rec_var, values=records, font=FONT3)
         self.record_type.set("Select Record")
@@ -48,35 +65,6 @@ class Filter():
         self.cancel_filter_btn = customtkinter.CTkButton(master=self.frame, text="Cancel", width=80, font=FONT3, hover_color="red", command=self.reset_filter)
 
         self.fil_details_box = customtkinter.CTkComboBox(master=self.frame, width=250, font=FONT3)
-
-        self.article_label= Label(master=self.frame, text="Article", font=FONT3, fg=FG, bg=BACKGROUND_COLOR)
-        self.article_label.place(x=240, y=250)
-
-        self.id_label= Label(master=self.frame, text="Article ID", font=FONT3, fg=FG, bg=BACKGROUND_COLOR)
-        self.id_label.place(x=440, y=250)
-
-        self.date_label= Label(master=self.frame, text="Date", font=FONT3, fg=FG, bg=BACKGROUND_COLOR)
-        self.date_label.place(x=590, y=250)
-
-        self.qty_label= Label(master=self.frame, text="QTY", font=FONT3, fg=FG, bg=BACKGROUND_COLOR)
-        self.qty_label.place(x=700, y=250)
-
-        self.fil_art_listbox = list_box(frame=self.frame, x_cor=140, y_cor=280, l_height=40, l_width=35)
-
-        self.fil_id_listbox = list_box(frame=self.frame, x_cor=360, y_cor=280, l_height=40, l_width=30)
-
-        self.fil_date_listbox = list_box(frame=self.frame, x_cor=550, y_cor=280, l_height=40, l_width=20)
-
-        self.fil_quatity_listbox = list_box(frame=self.frame, x_cor=680, y_cor=280, l_height=40, l_width=10)
-
-        bind_box(self.fil_art_listbox, self.fil_id_listbox, self.fil_date_listbox, self.fil_quatity_listbox, func=self.mousewheel)
-
-    def mousewheel(self, event):
-        """Responsible for binding all listboxes to mousewheel"""
-        self.fil_art_listbox.yview_scroll(-2 * int(event.delta / 120), "units")
-        self.fil_id_listbox.yview_scroll(-2 * int(event.delta / 120), "units")
-        self.fil_date_listbox.yview_scroll(-2 * int(event.delta / 120), "units")
-        self.fil_quatity_listbox.yview_scroll(-2 * int(event.delta / 120), "units")
 
 
     def get_info(self):
@@ -116,7 +104,7 @@ class Filter():
         """
         - Gets filtered data based on the inputs and displayes these data in the listboxes
         """
-        clear(self.fil_art_listbox, self.fil_id_listbox, self.fil_date_listbox, self.fil_quatity_listbox)
+        clear(self.article_listbox, self.ID_listbox, self.date_listbox, self.time_listbox)
 
         sheet = self.record_type.get()
         filter_param = self.filter_record_param.get()
@@ -140,13 +128,13 @@ class Filter():
             else:
                 filtered_df.to_csv(f"{self.file_path}/data/filtered.csv", index=False)
 
-                insert_info(self.fil_art_listbox, self.fil_id_listbox, self.fil_date_listbox, self.fil_quatity_listbox, path=self.file_path, file="filtered")
+                insert_info(self.article_listbox, self.ID_listbox, self.date_listbox, self.quatity_listbox, self.time_listbox, path=self.file_path, file="filtered")
 
                 forget(self.fil_details_box, self.filter_btn, self.cancel_filter_btn)
                 self.record_type.set("Select Record")
                 self.filter_record_param.set("Filter By")
 
-                self.print_btn.place(x=700, y=710)
+                self.print_btn.place(x=720, y=710)
 
                 
     def reset_filter(self):

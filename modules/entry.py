@@ -229,6 +229,6 @@ class Input(DataInput):
                             new_stk_df.to_csv(f"{self.file_path}/data/Stock_level.csv", mode='a', index=False, header=False)
 
                     clear(self.article_entry_entry, self.id_entry, self.unit_entry, self.qty_entry)
-                    update(self.update.article_listbox, self.update.ID_listbox, self.update.date_listbox, self.update.quatity_listbox, file="Entries", path=self.file_path)
+                    update(self.update.article_listbox, self.update.ID_listbox, self.update.date_listbox, self.update.quatity_listbox, self.update.time_listbox, file="Entries", path=self.file_path)
                     update_input(self.article_listbox, self.id_listbox, self.exit_updates.article_listbox, self.exit_updates.id_listbox, name=stock_name, old_data=old_art_list, path=self.file_path)
                     forget(self.current_label, self.current_qlabel)

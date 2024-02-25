@@ -143,12 +143,12 @@ class Project:
 
             listboxin(self.entry_tab.article_listbox,  self.entry_tab.id_listbox, path=self.entry_tab.file_path)
 
-            insert_info(self.recent_entries.article_listbox, self.recent_entries.ID_listbox, self.recent_entries.date_listbox, self.recent_entries.quatity_listbox, file=self.recent_entries.file_name, path=self.entry_tab.file_path)
+            insert_info(self.recent_entries.article_listbox, self.recent_entries.ID_listbox, self.recent_entries.date_listbox, self.recent_entries.quatity_listbox, self.recent_entries.time_listbox, file=self.recent_entries.file_name, path=self.entry_tab.file_path)
             
             #updating the exit tab
             listboxin(self.exit_tab.article_listbox, self.exit_tab.id_listbox, path=self.exit_tab.file_path)
 
-            insert_info(self.recent_exit.article_listbox, self.recent_exit.ID_listbox, self.recent_exit.date_listbox, self.recent_exit.quatity_listbox, file=self.recent_exit.file_name, path=self.exit_tab.file_path)
+            insert_info(self.recent_exit.article_listbox, self.recent_exit.ID_listbox, self.recent_exit.date_listbox, self.recent_exit.quatity_listbox, self.recent_exit.time_listbox, file=self.recent_exit.file_name, path=self.exit_tab.file_path)
 
             # updating the listbox on the advanced_tab
             listboxin(self.stock_tab.ch_listbox, path=self.stock_tab.file_path)
