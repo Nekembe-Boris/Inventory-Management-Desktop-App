@@ -35,7 +35,7 @@ This GUI inventory management system can be used by any individual to manage sto
 This project requiresPython >=3.7. To get started, follow the steps below:
 
 1. **Clone the Repository:** Begin by cloning this repository to your local machine using the following command:  
-   ```git clone https://github.com/Nekembe-Boris/XERXES.git```
+   ```https://github.com/Nekembe-Boris/Inventory-Management-Desktop-App.git```
 
 
 2. **Install Requirements:**  
