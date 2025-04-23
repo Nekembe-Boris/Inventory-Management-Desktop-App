@@ -1,4 +1,4 @@
-# XERXES - Inventory Management App
+# Inventory Management App
 
 This GUI inventory management system can be used by any individual to manage stock and it is 'Database-less' and was built solely with the Python **Tkinter GUI Toolkit**, **CustomTkinter Toolkit**, **Pandas Library** and CSV files. It can also be used in filtering your data based on certain preferences chosen.  
 
